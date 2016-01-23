@@ -1,4 +1,4 @@
-# http://www.share-elm.com/sprout/56a3bfb0e4b070fd20da92c9
+--http://www.share-elm.com/sprout/56a3bfb0e4b070fd20da92c9
 import Graphics.Element exposing (show)
 main = show ( (List.map (f 41)) [1..41] )
 
