@@ -17,7 +17,11 @@ main =
 -- http://primes.utm.edu/glossary/xpage/QuadraticResidue.html
 -- possible use as "pure" random number generator... still researching
 f: Int -> Int -> Int
-f p a = (a*a)%p
+f a p = (a*a)%p
+
+g: Result String Int -> Int -> Result String Int
+g p a  = ( Result.map (f a) ) p 
+
 
 
 -- UPDATE
@@ -40,7 +44,7 @@ view address string =
         , myStyle
         ]
         []
-    , div [ myStyle ] [ text (  toString ( (List.map (f 41))[1..41] ) ) ]
+    , div [ myStyle ] [ text (  toString (  List.map ( g ( String.toInt string) ) [1..41] ) ) ]
     ]
     
 myStyle : Attribute
