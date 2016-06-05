@@ -36,8 +36,12 @@ port polygons : ( ( List Polygon ) -> msg ) -> Sub msg
 
 port pixels : ( ImageData -> msg ) -> Sub msg
 
+-- what happens when you need two subscriptions ?
 subscriptions: Model -> Sub Msg
-subscriptions model = pixels ImageData
+subscriptions model = polygons MyPolygons
+
+--subscriptions: Model -> Sub Msg
+--subscriptions model = pixels MyImage
 
 -- MODEL
 -- type alias Model = List (Int, Int)
@@ -53,10 +57,13 @@ type alias Model = { polygons : List Polygon, pic: ImageData }
 
 -- VIEW
 
+info: String
+info = "In mathematics, a Voronoi diagram is a partitioning of a plane into regions based on distance to points in a specific subset of the plane. That set of points (called seeds, sites, or generators) is specified beforehand, and for each seed there is a corresponding region consisting of all points closer to that seed than to any other. These regions are called Voronoi cells. The Voronoi diagram of a set of points is dual to its Delaunay triangulation."
+
 view: Model -> Html Msg
 view model = div [ class "title"]
   [ h1 [] [ Html.text "Voronoi Tesslation Collage" ]
-  , h2 [] [ Html.text "Generating New Results!" ]
+  , p [ Html.Attributes.width width ] [ Html.text info ]
   , toHtml <| image width height "starry-night.jpg"
   , toHtml <| collage width height <| tiling model.polygons
   ]
