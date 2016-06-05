@@ -10062,6 +10062,13 @@ var _user$project$VanGogh$tile = function (y) {
 var _user$project$VanGogh$tiling = function (x) {
 	return A2(_elm_lang$core$List$map, _user$project$VanGogh$tile, x);
 };
+var _user$project$VanGogh$myStyle = _elm_lang$core$Native_List.fromArray(
+	[
+		{ctor: '_Tuple2', _0: 'width', _1: '960px'},
+		{ctor: '_Tuple2', _0: 'text-align', _1: 'justify'},
+		{ctor: '_Tuple2', _0: 'background-color', _1: '#F0F0F0'}
+	]);
+var _user$project$VanGogh$moreInfo = 'Painting starry night, Polygons by Voronoi Tesslation, Random Points through Uniform Random Sampling (instead of Poisson Disc Sampling), Data Stored by Array of Integer pairs (instead of Quadtree).';
 var _user$project$VanGogh$info = 'In mathematics, a Voronoi diagram is a partitioning of a plane into regions based on distance to points in a specific subset of the plane. That set of points (called seeds, sites, or generators) is specified beforehand, and for each seed there is a corresponding region consisting of all points closer to that seed than to any other. These regions are called Voronoi cells. The Voronoi diagram of a set of points is dual to its Delaunay triangulation.';
 var _user$project$VanGogh$height = 500;
 var _user$project$VanGogh$width = 960;
@@ -10070,7 +10077,7 @@ var _user$project$VanGogh$view = function (model) {
 		_elm_lang$html$Html$div,
 		_elm_lang$core$Native_List.fromArray(
 			[
-				_elm_lang$html$Html_Attributes$class('title')
+				_elm_lang$html$Html_Attributes$class('myTitle')
 			]),
 		_elm_lang$core$Native_List.fromArray(
 			[
@@ -10080,13 +10087,23 @@ var _user$project$VanGogh$view = function (model) {
 					[]),
 				_elm_lang$core$Native_List.fromArray(
 					[
-						_elm_lang$html$Html$text('Voronoi Tesslation Collage')
+						_elm_lang$html$Html$text('Starry Night')
 					])),
 				A2(
 				_elm_lang$html$Html$p,
 				_elm_lang$core$Native_List.fromArray(
 					[
-						_elm_lang$html$Html_Attributes$width(_user$project$VanGogh$width)
+						_elm_lang$html$Html_Attributes$style(_user$project$VanGogh$myStyle)
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html$text(_user$project$VanGogh$moreInfo)
+					])),
+				A2(
+				_elm_lang$html$Html$p,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$style(_user$project$VanGogh$myStyle)
 					]),
 				_elm_lang$core$Native_List.fromArray(
 					[
