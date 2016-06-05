@@ -10111,6 +10111,19 @@ var _user$project$VanGogh$view = function (model) {
 					])),
 				_evancz$elm_graphics$Element$toHtml(
 				A3(_evancz$elm_graphics$Element$image, _user$project$VanGogh$width, _user$project$VanGogh$height, 'starry-night.jpg')),
+				A2(
+				_elm_lang$html$Html$hr,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$style(
+						_elm_lang$core$Native_List.fromArray(
+							[
+								{ctor: '_Tuple2', _0: 'width', _1: '960px'},
+								{ctor: '_Tuple2', _0: 'margin-left', _1: '0'}
+							]))
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[])),
 				_evancz$elm_graphics$Element$toHtml(
 				A3(
 					_evancz$elm_graphics$Collage$collage,
