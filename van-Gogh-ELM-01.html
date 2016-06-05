@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<body>
+
+<div id="vanGogh"></div>
+<script src="//d3js.org/d3.v3.min.js"></script>
+<script src="van-Gogh-01.js"></script>
+<script>
+  var node = document.getElementById("vanGogh");
+  var app  = Elm.VanGogh.embed(node);
+
+  //
+
+  app.ports.getPolygons.subscribe(
+    function(){
+      var width = 960
+      var height = 500
+      var samples = []
+      for(i = 0; i < 10000; i++) samples.push([ width*(Math.random()-0.5) , height*(Math.random()-0.5)  ]);
+      var polygons = d3.geom.voronoi(samples);
+      console.log(polygons);
+      app.ports.polygons.send( polygons );
+    }
+  );
+</script>
+
+</body>
