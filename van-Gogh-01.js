@@ -10054,19 +10054,43 @@ var _user$project$VanGogh$send = function (msg) {
 		_elm_lang$core$Basics$identity,
 		_elm_lang$core$Task$succeed(msg));
 };
+var _user$project$VanGogh$coloredTile = F2(
+	function (x, y) {
+		return A2(
+			_evancz$elm_graphics$Collage$filled,
+			x,
+			_evancz$elm_graphics$Collage$polygon(y));
+	});
+var _user$project$VanGogh$getIndex = function (p) {
+	var _p0 = _elm_lang$core$List$head(p);
+	if (_p0.ctor === 'Nothing') {
+		return _elm_lang$core$Maybe$Nothing;
+	} else {
+		var _p1 = _p0._0;
+		return _elm_lang$core$Maybe$Just(
+			{
+				ctor: '_Tuple2',
+				_0: _elm_lang$core$Basics$round(
+					_elm_lang$core$Basics$fst(_p1)),
+				_1: _elm_lang$core$Basics$round(
+					_elm_lang$core$Basics$snd(_p1))
+			});
+	}
+};
 var _user$project$VanGogh$tile = function (y) {
 	return _evancz$elm_graphics$Collage$outlined(
 		_evancz$elm_graphics$Collage$solid(_elm_lang$core$Color$black))(
 		_evancz$elm_graphics$Collage$polygon(y));
 };
-var _user$project$VanGogh$tiling = function (x) {
-	return A2(_elm_lang$core$List$map, _user$project$VanGogh$tile, x);
-};
+var _user$project$VanGogh$tiling = F2(
+	function (x, y) {
+		return A2(_elm_lang$core$List$map, _user$project$VanGogh$tile, x);
+	});
 var _user$project$VanGogh$myStyle = _elm_lang$core$Native_List.fromArray(
 	[
 		{ctor: '_Tuple2', _0: 'width', _1: '960px'},
 		{ctor: '_Tuple2', _0: 'text-align', _1: 'justify'},
-		{ctor: '_Tuple2', _0: 'background-color', _1: '#F0F0F0'}
+		{ctor: '_Tuple2', _0: 'background-color', _1: '#FAFAFA'}
 	]);
 var _user$project$VanGogh$moreInfo = 'Painting starry night, Polygons by Voronoi Tesslation, Random Points through Uniform Random Sampling (instead of Poisson Disc Sampling), Data Stored by Array of Integer pairs (instead of Quadtree).';
 var _user$project$VanGogh$info = 'In mathematics, a Voronoi diagram is a partitioning of a plane into regions based on distance to points in a specific subset of the plane. That set of points (called seeds, sites, or generators) is specified beforehand, and for each seed there is a corresponding region consisting of all points closer to that seed than to any other. These regions are called Voronoi cells. The Voronoi diagram of a set of points is dual to its Delaunay triangulation.';
@@ -10129,7 +10153,20 @@ var _user$project$VanGogh$view = function (model) {
 					_evancz$elm_graphics$Collage$collage,
 					_user$project$VanGogh$width,
 					_user$project$VanGogh$height,
-					_user$project$VanGogh$tiling(model.polygons)))
+					A2(_user$project$VanGogh$tiling, model.polygons, model.pic))),
+				A2(
+				_elm_lang$html$Html$hr,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$style(
+						_elm_lang$core$Native_List.fromArray(
+							[
+								{ctor: '_Tuple2', _0: 'width', _1: '960px'},
+								{ctor: '_Tuple2', _0: 'margin-left', _1: '0'}
+							]))
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[]))
 			]));
 };
 var _user$project$VanGogh$getImageData = _elm_lang$core$Native_Platform.outgoingPort(
@@ -10168,17 +10205,17 @@ var _user$project$VanGogh$pixels = _elm_lang$core$Native_Platform.incomingPort(
 						_elm_lang$core$Json_Decode$andThen,
 						A2(
 							_elm_lang$core$Json_Decode_ops[':='],
-							'pts',
+							'data',
 							_elm_lang$core$Json_Decode$list(_elm_lang$core$Json_Decode$int)),
-						function (pts) {
+						function (data) {
 							return _elm_lang$core$Json_Decode$succeed(
-								{width: width, height: height, pts: pts});
+								{width: width, height: height, data: data});
 						});
 				});
 		}));
 var _user$project$VanGogh$ImageData = F3(
 	function (a, b, c) {
-		return {width: a, height: b, pts: c};
+		return {width: a, height: b, data: c};
 	});
 var _user$project$VanGogh$Model = F2(
 	function (a, b) {
@@ -10186,8 +10223,8 @@ var _user$project$VanGogh$Model = F2(
 	});
 var _user$project$VanGogh$update = F2(
 	function (msg, model) {
-		var _p0 = msg;
-		switch (_p0.ctor) {
+		var _p2 = msg;
+		switch (_p2.ctor) {
 			case 'GetData':
 				return {
 					ctor: '_Tuple2',
@@ -10205,13 +10242,13 @@ var _user$project$VanGogh$update = F2(
 			case 'MyPolygons':
 				return {
 					ctor: '_Tuple2',
-					_0: A2(_user$project$VanGogh$Model, _p0._0, model.pic),
+					_0: A2(_user$project$VanGogh$Model, _p2._0, model.pic),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 			default:
 				return {
 					ctor: '_Tuple2',
-					_0: A2(_user$project$VanGogh$Model, model.polygons, _p0._0),
+					_0: A2(_user$project$VanGogh$Model, model.polygons, _p2._0),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 		}
@@ -10220,6 +10257,18 @@ var _user$project$VanGogh$MyImage = function (a) {
 	return {ctor: 'MyImage', _0: a};
 };
 var _user$project$VanGogh$GetPolygon = {ctor: 'GetPolygon'};
+var _user$project$VanGogh$MyPolygons = function (a) {
+	return {ctor: 'MyPolygons', _0: a};
+};
+var _user$project$VanGogh$subscriptions = function (model) {
+	return _elm_lang$core$Platform_Sub$batch(
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_user$project$VanGogh$polygons(_user$project$VanGogh$MyPolygons),
+				_user$project$VanGogh$pixels(_user$project$VanGogh$MyImage)
+			]));
+};
+var _user$project$VanGogh$GetData = {ctor: 'GetData'};
 var _user$project$VanGogh$init = {
 	ctor: '_Tuple2',
 	_0: A2(
@@ -10232,19 +10281,17 @@ var _user$project$VanGogh$init = {
 			_user$project$VanGogh$height,
 			_elm_lang$core$Native_List.fromArray(
 				[]))),
-	_1: _user$project$VanGogh$send(_user$project$VanGogh$GetPolygon)
-};
-var _user$project$VanGogh$MyPolygons = function (a) {
-	return {ctor: 'MyPolygons', _0: a};
-};
-var _user$project$VanGogh$subscriptions = function (model) {
-	return _user$project$VanGogh$polygons(_user$project$VanGogh$MyPolygons);
+	_1: _elm_lang$core$Platform_Cmd$batch(
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_user$project$VanGogh$send(_user$project$VanGogh$GetPolygon),
+				_user$project$VanGogh$send(_user$project$VanGogh$GetData)
+			]))
 };
 var _user$project$VanGogh$main = {
 	main: _elm_lang$html$Html_App$program(
 		{init: _user$project$VanGogh$init, view: _user$project$VanGogh$view, update: _user$project$VanGogh$update, subscriptions: _user$project$VanGogh$subscriptions})
 };
-var _user$project$VanGogh$GetData = {ctor: 'GetData'};
 
 var Elm = {};
 Elm['VanGogh'] = Elm['VanGogh'] || {};
