@@ -12,6 +12,7 @@ import String
 import List
 import Task
 import Color exposing (..)
+import Array exposing (..)
 
 import Platform.Sub exposing (..)
 import Platform.Cmd exposing (..)
@@ -50,7 +51,7 @@ type alias Point = (Float, Float)
 
 type alias Polygon = List Point
 
-type alias ImageData = {width: Int, height: Int, data: List Int}
+type alias ImageData = {width: Int, height: Int, data: Array Int}
 
 type alias Model = { polygons : List Polygon, pic: ImageData }
 
@@ -82,15 +83,38 @@ tiling x y = List.map tile x
 tile :  Polygon -> Form
 tile y = ( outlined <| solid black ) (polygon y)
 
-getColor : Polygon -> ImageData -> Color:
-getColor x y = 
+get' : Maybe Int -> Array Int -> Maybe Int
+get' x y =
+  case x of
+    Nothing -> Just 0
+    Just a  -> get a y
+
+rgb' : Maybe Int -> Maybe Int -> Maybe Int -> Color
+rgb' a b c =
+  case a of
+    Nothing -> rgb 0 0 0
+    Just a' -> case b of
+      Nothing -> rgb a' 0 0
+      Just b' -> case c of
+        Nothing -> rgb a' b' 0
+        Just c' -> rgb a' b' c'
+
+getColor : Polygon -> ImageData -> Color
+getColor x y =
+  let
+    k : Maybe Int
+    k = getIndex x y
+  in
+    case k of
+      Nothing -> rgb 0 0 0
+      Just m  -> rgb' ( get m y.data ) ( get (m+1) y.data ) ( get (m+2) y.data )
 
 getIndex : Polygon -> ImageData -> Maybe Int
-getIndex p =
-  case List.head p of
+getIndex x y =
+  case List.head x of
     Nothing -> Nothing
     -- what if there were 3-tuple or n-tuple
-    Just x y -> Just (4*y.width)*( round <| fst x ) + round <| snd x
+    Just x -> Just <| (4*y.width)*( round <| fst x ) + ( round <| snd x )
 
 coloredTile : Color -> Polygon -> Form
 coloredTile x y =  filled x <| polygon y
@@ -111,7 +135,7 @@ update msg model =
 -- INIT
 
 init: (Model, Cmd Msg)
-init = ( Model [] <| ImageData width height []  , Platform.Cmd.batch [send GetPolygon, send GetData] )
+init = ( Model [] <| ImageData width height Array.empty  , Platform.Cmd.batch [send GetPolygon, send GetData] )
 -- init = ( Model [] <| ImageData width height []  , Platform.Cmd.batch [send GetPolygon ] )
 -- init = ( Model [] <| ImageData width height []  , Platform.Cmd.batch [send GetData ] )
 
