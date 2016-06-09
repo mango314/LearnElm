@@ -36,17 +36,19 @@
 
         var image = new Image();
         image.src= "starry-night.jpg";
-        ctx.drawImage(image, 0, 0);
+        image.onload = function () {
+          ctx.drawImage(image, 0, 0);
 
-        var pixel = ctx.getImageData(0,0, width, height)
+          var pixel = ctx.getImageData(0,0, width, height)
 
-        // getImageData is not genuinely a List
-        var pixels = [];
-        for( var i = 0; i < pixel.data.length; i++){ pixels.push(pixel.data[i]); }
+          // getImageData is not genuinely a List
+          var pixels = [];
+          for( var i = 0; i < pixel.data.length; i++){ pixels.push(pixel.data[i]); }
 
-        console.log(pixels);
-        app.ports.pixels.send( { "width": width, "height": height, "data": pixels } );
-        console.log("pixels");
+          console.log(pixels);
+          app.ports.pixels.send( { "width": width, "height": height, "data": pixels } );
+          console.log("pixels");
+        }
     }
   );
 </script>
