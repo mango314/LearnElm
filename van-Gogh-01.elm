@@ -68,12 +68,12 @@ myStyle = [ ("width",  "960px" )  , ("text-align", "justify"), ("background-colo
 
 view: Model -> Html Msg
 view model = div [ class "myTitle"]
-  [ h1 [] [ Html.text "Starry Night" ]
+  [ h1 [] [ Html.text "Paint By Numbers: Starry Night" ]
   , p [ Html.Attributes.style myStyle ] [ Html.text moreInfo  ]
   , p [ Html.Attributes.style myStyle ] [ Html.text info ]
   , toHtml <| image width height "starry-night.jpg"
   , hr [Html.Attributes.style [ ("width", "960px" ), ("margin-left", "0")] ] []
-  , toHtml <| collage width height <| tiling model.polygons model.pic
+  , toHtml <| collage width height <| coloredTiling model.polygons model.pic
   , hr [Html.Attributes.style [ ("width", "960px" ), ("margin-left", "0")] ] []
   ]
 
@@ -90,34 +90,47 @@ get' x y =
     Just a  -> get a y
 
 rgb' : Maybe Int -> Maybe Int -> Maybe Int -> Color
-rgb' a b c =
+{-rgb' a b c =
   case a of
-    Nothing -> rgb 0 0 0
+    Nothing -> rgb 255 255 255
     Just a' -> case b of
       Nothing -> rgb a' 0 0
       Just b' -> case c of
         Nothing -> rgb a' b' 0
+        Just c' -> rgb a' b' c' -}
+
+rgb' a b c =
+  case a of
+    Nothing -> rgb 255 255 255
+    Just a' -> case b of
+      Nothing -> rgb 255 255 255
+      Just b' -> case c of
+        Nothing -> rgb 255 255 255
         Just c' -> rgb a' b' c'
 
 getColor : Polygon -> ImageData -> Color
 getColor x y =
   let
-    k : Maybe Int
-    k = getIndex x y
+    m : Int
+    m = getIndex x y
   in
-    case k of
-      Nothing -> rgb 0 0 0
-      Just m  -> rgb' ( get m y.data ) ( get (m+1) y.data ) ( get (m+2) y.data )
+    rgb' ( get m y.data ) ( get (m+1) y.data ) ( get (m+2) y.data )
 
-getIndex : Polygon -> ImageData -> Maybe Int
+getIndex : Polygon -> ImageData -> Int
 getIndex x y =
   case List.head x of
-    Nothing -> Nothing
+    Nothing -> 20001
     -- what if there were 3-tuple or n-tuple
-    Just x -> Just <| (4*y.width)*( round <| fst x ) + ( round <| snd x )
+    Just z  -> 4*( y.width*( (round <| snd z)+ 250 ) + ( (round <| fst z)+ 480 ))
 
-coloredTile : Color -> Polygon -> Form
-coloredTile x y =  filled x <| polygon y
+coloredTile :  Polygon -> Color -> Form
+coloredTile x y =  filled y <| polygon x
+
+f : ImageData -> Polygon -> Form
+f y z = coloredTile z ( getColor z y )
+
+coloredTiling : List Polygon -> ImageData -> List Form
+coloredTiling x y = List.map ( f y ) x
 
 -- UPDATE
 

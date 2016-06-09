@@ -10058,25 +10058,72 @@ var _user$project$VanGogh$coloredTile = F2(
 	function (x, y) {
 		return A2(
 			_evancz$elm_graphics$Collage$filled,
-			x,
-			_evancz$elm_graphics$Collage$polygon(y));
+			y,
+			_evancz$elm_graphics$Collage$polygon(x));
 	});
-var _user$project$VanGogh$getIndex = function (p) {
-	var _p0 = _elm_lang$core$List$head(p);
-	if (_p0.ctor === 'Nothing') {
-		return _elm_lang$core$Maybe$Nothing;
-	} else {
-		var _p1 = _p0._0;
-		return _elm_lang$core$Maybe$Just(
-			{
-				ctor: '_Tuple2',
-				_0: _elm_lang$core$Basics$round(
-					_elm_lang$core$Basics$fst(_p1)),
-				_1: _elm_lang$core$Basics$round(
-					_elm_lang$core$Basics$snd(_p1))
-			});
-	}
-};
+var _user$project$VanGogh$getIndex = F2(
+	function (x, y) {
+		var _p0 = _elm_lang$core$List$head(x);
+		if (_p0.ctor === 'Nothing') {
+			return 20001;
+		} else {
+			var _p1 = _p0._0;
+			return 4 * ((y.width * (_elm_lang$core$Basics$round(
+				_elm_lang$core$Basics$snd(_p1)) + 250)) + (_elm_lang$core$Basics$round(
+				_elm_lang$core$Basics$fst(_p1)) + 480));
+		}
+	});
+var _user$project$VanGogh$rgb$ = F3(
+	function (a, b, c) {
+		var _p2 = a;
+		if (_p2.ctor === 'Nothing') {
+			return A3(_elm_lang$core$Color$rgb, 255, 255, 255);
+		} else {
+			var _p3 = b;
+			if (_p3.ctor === 'Nothing') {
+				return A3(_elm_lang$core$Color$rgb, 255, 255, 255);
+			} else {
+				var _p4 = c;
+				if (_p4.ctor === 'Nothing') {
+					return A3(_elm_lang$core$Color$rgb, 255, 255, 255);
+				} else {
+					return A3(_elm_lang$core$Color$rgb, _p2._0, _p3._0, _p4._0);
+				}
+			}
+		}
+	});
+var _user$project$VanGogh$getColor = F2(
+	function (x, y) {
+		var m = A2(_user$project$VanGogh$getIndex, x, y);
+		return A3(
+			_user$project$VanGogh$rgb$,
+			A2(_elm_lang$core$Array$get, m, y.data),
+			A2(_elm_lang$core$Array$get, m + 1, y.data),
+			A2(_elm_lang$core$Array$get, m + 2, y.data));
+	});
+var _user$project$VanGogh$f = F2(
+	function (y, z) {
+		return A2(
+			_user$project$VanGogh$coloredTile,
+			z,
+			A2(_user$project$VanGogh$getColor, z, y));
+	});
+var _user$project$VanGogh$coloredTiling = F2(
+	function (x, y) {
+		return A2(
+			_elm_lang$core$List$map,
+			_user$project$VanGogh$f(y),
+			x);
+	});
+var _user$project$VanGogh$get$ = F2(
+	function (x, y) {
+		var _p5 = x;
+		if (_p5.ctor === 'Nothing') {
+			return _elm_lang$core$Maybe$Just(0);
+		} else {
+			return A2(_elm_lang$core$Array$get, _p5._0, y);
+		}
+	});
 var _user$project$VanGogh$tile = function (y) {
 	return _evancz$elm_graphics$Collage$outlined(
 		_evancz$elm_graphics$Collage$solid(_elm_lang$core$Color$black))(
@@ -10153,7 +10200,7 @@ var _user$project$VanGogh$view = function (model) {
 					_evancz$elm_graphics$Collage$collage,
 					_user$project$VanGogh$width,
 					_user$project$VanGogh$height,
-					A2(_user$project$VanGogh$tiling, model.polygons, model.pic))),
+					A2(_user$project$VanGogh$coloredTiling, model.polygons, model.pic))),
 				A2(
 				_elm_lang$html$Html$hr,
 				_elm_lang$core$Native_List.fromArray(
@@ -10206,7 +10253,7 @@ var _user$project$VanGogh$pixels = _elm_lang$core$Native_Platform.incomingPort(
 						A2(
 							_elm_lang$core$Json_Decode_ops[':='],
 							'data',
-							_elm_lang$core$Json_Decode$list(_elm_lang$core$Json_Decode$int)),
+							_elm_lang$core$Json_Decode$array(_elm_lang$core$Json_Decode$int)),
 						function (data) {
 							return _elm_lang$core$Json_Decode$succeed(
 								{width: width, height: height, data: data});
@@ -10223,8 +10270,8 @@ var _user$project$VanGogh$Model = F2(
 	});
 var _user$project$VanGogh$update = F2(
 	function (msg, model) {
-		var _p2 = msg;
-		switch (_p2.ctor) {
+		var _p6 = msg;
+		switch (_p6.ctor) {
 			case 'GetData':
 				return {
 					ctor: '_Tuple2',
@@ -10242,13 +10289,13 @@ var _user$project$VanGogh$update = F2(
 			case 'MyPolygons':
 				return {
 					ctor: '_Tuple2',
-					_0: A2(_user$project$VanGogh$Model, _p2._0, model.pic),
+					_0: A2(_user$project$VanGogh$Model, _p6._0, model.pic),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 			default:
 				return {
 					ctor: '_Tuple2',
-					_0: A2(_user$project$VanGogh$Model, model.polygons, _p2._0),
+					_0: A2(_user$project$VanGogh$Model, model.polygons, _p6._0),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 		}
@@ -10275,12 +10322,7 @@ var _user$project$VanGogh$init = {
 		_user$project$VanGogh$Model,
 		_elm_lang$core$Native_List.fromArray(
 			[]),
-		A3(
-			_user$project$VanGogh$ImageData,
-			_user$project$VanGogh$width,
-			_user$project$VanGogh$height,
-			_elm_lang$core$Native_List.fromArray(
-				[]))),
+		A3(_user$project$VanGogh$ImageData, _user$project$VanGogh$width, _user$project$VanGogh$height, _elm_lang$core$Array$empty)),
 	_1: _elm_lang$core$Platform_Cmd$batch(
 		_elm_lang$core$Native_List.fromArray(
 			[
