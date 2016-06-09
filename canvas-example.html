@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<body>
+
+<canvas id="vincent"></canvas>
+
+<script>
+
+        var width  = 960;
+        var height = 500;
+        var canvas = document.getElementById('vincent');
+        var ctx = canvas.getContext("2d");
+        canvas.width  = width;
+        canvas.height = height;
+
+        var image = new Image();
+        image.src= "starry-night.jpg";
+        ctx.drawImage(image, 0, 0);
+
+        console.log("done");
+
+</script>
+
+</body>

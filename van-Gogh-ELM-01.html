@@ -21,8 +21,6 @@
       // for(i = 0; i < 10000; i++) samples.push([ width*(Math.random()-0.5), height*(Math.random()-0.5) ]);
       for(i = 0; i < 10000; i++) { a = (i % 100)/100; b = (i / 100 >> 0 )/ 100; samples.push([ width*(a-0.5), height*(b-0.5) ]); }
       var polygons = d3.geom.voronoi(samples);
-      //console.log(samples);
-      //console.log(polygons);
       app.ports.polygons.send( polygons );
     }
   );
@@ -37,17 +35,14 @@
         canvas.height = height;
 
         var image = new Image();
-        image.src= "http://monsieurcactus.github.io/LearnElm/starry-night.jpg";
+        image.src= "starry-night.jpg";
         ctx.drawImage(image, 0, 0);
-
 
         var pixel = ctx.getImageData(0,0, width, height)
 
-        // getImageData is not genuinely a list
+        // getImageData is not genuinely a List
         var pixels = [];
-        for( var i = 0; i < pixel.data.length; i++){
-          pixels.push(pixel.data[i]);
-        }
+        for( var i = 0; i < pixel.data.length; i++){ pixels.push(pixel.data[i]); }
 
         console.log(pixels);
         app.ports.pixels.send( { "width": width, "height": height, "data": pixels } );
