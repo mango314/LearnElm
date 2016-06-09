@@ -10158,7 +10158,7 @@ var _user$project$VanGogh$view = function (model) {
 					[]),
 				_elm_lang$core$Native_List.fromArray(
 					[
-						_elm_lang$html$Html$text('Starry Night')
+						_elm_lang$html$Html$text('Paint By Numbers: Starry Night')
 					])),
 				A2(
 				_elm_lang$html$Html$p,
