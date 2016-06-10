@@ -4,27 +4,29 @@
 
 <div id="vanGogh"></div>
 <canvas id="vincent"></canvas>
-<script src="//d3js.org/d3.v3.min.js"></script>
-<!--<script src="d3.v3.min.js"></script> -->
+<!--<script src="//d3js.org/d3.v3.min.js"></script> -->
+<script src="d3.v3.min.js"></script>
 <script src="van-Gogh-01.js"></script>
 <script>
   var node = document.getElementById("vanGogh");
   var app  = Elm.VanGogh.embed(node);
 
-  //
-
+  // start moving VORONOI and RANDOM out of JavaScript
   app.ports.getPolygons.subscribe(
     function(){
       var width = 960;
       var height = 500;
       var samples = [];
-      // for(i = 0; i < 10000; i++) samples.push([ width*(Math.random()-0.5), height*(Math.random()-0.5) ]);
-      for(i = 0; i < 10000; i++) { a = (i % 100)/100; b = (i / 100 >> 0 )/ 100; samples.push([ width*(a-0.5), height*(b-0.5) ]); }
-      var polygons = d3.geom.voronoi(samples);
+      for(i = 0; i < 20000; i++) samples.push([ width*(Math.random()-0.5), height*(Math.random()-0.5) ]);
+      // for(i = 0; i < 10000; i++) { a = (i % 100)/100; b = (i / 100 >> 0 )/ 100; samples.push([ width*(a-0.5), height*(b-0.5) ]); }
+      var L = 2.005;
+      var voronoi  = d3.geom.voronoi().clipExtent([[-width/L, -height/L], [width/L, height/L]]);
+      var polygons = voronoi(samples);
       app.ports.polygons.send( polygons );
     }
   );
 
+  // this port will always be necessary since importing an image is "impure"
   app.ports.getImageData.subscribe(
     function(){
         var width  = 960;
@@ -48,6 +50,7 @@
           console.log(pixels);
           app.ports.pixels.send( { "width": width, "height": height, "data": pixels } );
           console.log("pixels");
+          document.getElementById("vincent").remove();
         }
     }
   );

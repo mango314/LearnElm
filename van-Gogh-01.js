@@ -10054,12 +10054,20 @@ var _user$project$VanGogh$send = function (msg) {
 		_elm_lang$core$Basics$identity,
 		_elm_lang$core$Task$succeed(msg));
 };
+var _user$project$VanGogh$reflect = function (pt) {
+	return {
+		ctor: '_Tuple2',
+		_0: _elm_lang$core$Basics$fst(pt),
+		_1: -1 * _elm_lang$core$Basics$snd(pt)
+	};
+};
 var _user$project$VanGogh$coloredTile = F2(
 	function (x, y) {
 		return A2(
 			_evancz$elm_graphics$Collage$filled,
 			y,
-			_evancz$elm_graphics$Collage$polygon(x));
+			_evancz$elm_graphics$Collage$polygon(
+				A2(_elm_lang$core$List$map, _user$project$VanGogh$reflect, x)));
 	});
 var _user$project$VanGogh$getIndex = F2(
 	function (x, y) {
@@ -10139,7 +10147,7 @@ var _user$project$VanGogh$myStyle = _elm_lang$core$Native_List.fromArray(
 		{ctor: '_Tuple2', _0: 'text-align', _1: 'justify'},
 		{ctor: '_Tuple2', _0: 'background-color', _1: '#FAFAFA'}
 	]);
-var _user$project$VanGogh$moreInfo = 'Painting starry night, Polygons by Voronoi Tesslation, Random Points through Uniform Random Sampling (instead of Poisson Disc Sampling), Data Stored by Array of Integer pairs (instead of Quadtree).';
+var _user$project$VanGogh$moreInfo = 'Van Gogh\'s famous painting Starry Night, re-imagined using the techniques of geometric abstraction.  Colors taken from Van Gogh, polygons by Voronoi Tesslation algorithm. Random points through Uniform Random Sampling (instead of Poisson Disc Sampling). Data Stored by Array of Integer pairs (instead of Quadtree).';
 var _user$project$VanGogh$info = 'In mathematics, a Voronoi diagram is a partitioning of a plane into regions based on distance to points in a specific subset of the plane. That set of points (called seeds, sites, or generators) is specified beforehand, and for each seed there is a corresponding region consisting of all points closer to that seed than to any other. These regions are called Voronoi cells. The Voronoi diagram of a set of points is dual to its Delaunay triangulation.';
 var _user$project$VanGogh$height = 500;
 var _user$project$VanGogh$width = 960;
@@ -10158,7 +10166,7 @@ var _user$project$VanGogh$view = function (model) {
 					[]),
 				_elm_lang$core$Native_List.fromArray(
 					[
-						_elm_lang$html$Html$text('Paint By Numbers: Starry Night')
+						_elm_lang$html$Html$text('Paint By Numbers - Starry Night')
 					])),
 				A2(
 				_elm_lang$html$Html$p,

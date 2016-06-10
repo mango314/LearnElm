@@ -61,14 +61,14 @@ info: String
 info = "In mathematics, a Voronoi diagram is a partitioning of a plane into regions based on distance to points in a specific subset of the plane. That set of points (called seeds, sites, or generators) is specified beforehand, and for each seed there is a corresponding region consisting of all points closer to that seed than to any other. These regions are called Voronoi cells. The Voronoi diagram of a set of points is dual to its Delaunay triangulation."
 
 moreInfo : String
-moreInfo = "Painting starry night, Polygons by Voronoi Tesslation, Random Points through Uniform Random Sampling (instead of Poisson Disc Sampling), Data Stored by Array of Integer pairs (instead of Quadtree)."
+moreInfo = "Van Gogh's famous painting Starry Night, re-imagined using the techniques of geometric abstraction.  Colors taken from Van Gogh, polygons by Voronoi Tesslation algorithm. Random points through Uniform Random Sampling (instead of Poisson Disc Sampling). Data Stored by Array of Integer pairs (instead of Quadtree)."
 
 myStyle : List (String, String)
 myStyle = [ ("width",  "960px" )  , ("text-align", "justify"), ("background-color", "#FAFAFA")]
 
 view: Model -> Html Msg
 view model = div [ class "myTitle"]
-  [ h1 [] [ Html.text "Paint By Numbers: Starry Night" ]
+  [ h1 [] [ Html.text "Paint By Numbers - Starry Night" ]
   , p [ Html.Attributes.style myStyle ] [ Html.text moreInfo  ]
   , p [ Html.Attributes.style myStyle ] [ Html.text info ]
   , toHtml <| image width height "starry-night.jpg"
@@ -123,8 +123,11 @@ getIndex x y =
     -- what if there were 3-tuple or n-tuple
     Just z  -> 4*( y.width*( (round <| snd z)+ 250 ) + ( (round <| fst z)+ 480 ))
 
+reflect: Point -> Point
+reflect pt = ( fst pt, -1 * snd pt)
+
 coloredTile :  Polygon -> Color -> Form
-coloredTile x y =  filled y <| polygon x
+coloredTile x y =  filled y <| polygon <| List.map reflect x
 
 f : ImageData -> Polygon -> Form
 f y z = coloredTile z ( getColor z y )
