@@ -5,3 +5,6 @@ Instructions: **copy** + **paste** into left side of [elm-lang.org/try](http://e
 
 
 ![](http://i.imgur.com/cWpJVIq.png)
+
+We are in the process of developing Elm-D3 interoperability please this one test case:
+  * http://monsieurcactus.github.io/LearnElm/van-Gogh-ELM-01.html
