@@ -8,4 +8,4 @@ Instructions: **copy** + **paste** into left side of [elm-lang.org/try](http://e
 
 We are in the process of developing Elm-D3 interoperability please this one test case:
   * http://monsieurcactus.github.io/LearnElm/van-Gogh-ELM-01.html
-  * http://monsieurcactus.github.io/LearnElm/square.html
+  * http://monsieurcactus.github.io/LearnElm/square.html (in progress)
