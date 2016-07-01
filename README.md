@@ -9,6 +9,7 @@ Instructions: **copy** + **paste** into left side of [elm-lang.org/try](http://e
 We are in the process of developing Elm-D3 interoperability please this one test case:
   * http://monsieurcactus.github.io/LearnElm/van-Gogh-ELM-01.html
   * http://monsieurcactus.github.io/LearnElm/square.html (in progress)
+  * http://monsieurcactus.github.io/LearnElm/block.html  (basic code presentation app w/ syntax highlighting)
 
 > Elm is a new language based on functional programming that compiles to JavaScript. The Elm compiler can significant errors in JavaScript code before we do. The type-safety features of Elm enable use to define reusable charts and interfaces, comparable to that of D3JS.  In fact, we can use it in conjunction with d3js.
 
