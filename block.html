@@ -1,0 +1,18 @@
+<html>
+<head>
+<title>Example: Poisson Disc Sampling</title>
+<link rel="stylesheet" href="styles/solarized-light.css">
+<script src="highlight.pack.js"></script>
+</head>
+<body>
+
+<div id="my-elm-block"></div>
+<script src="block.js"></script>
+<script>
+  var node = document.getElementById("my-elm-block");
+  var app  = Elm.Main.embed(node);
+  setTimeout(function() { hljs.highlightBlock(  document.getElementById("code") ); }, 1);
+
+</script>
+</body>
+</html>
