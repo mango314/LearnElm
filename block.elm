@@ -27,18 +27,24 @@ view model =
   div [ ]
     [ graphic
     , codesample
+    , htmlcode
     ]
 
 codesample : Html Msg
-codesample = pre [ myStyle , Html.Attributes.id "code" ]
+codesample = pre [ myStyle , Html.Attributes.id "code-1" ]
   [ code [  ] [ Html.text thisCode ]
+  ]
+
+htmlcode : Html Msg
+htmlcode = pre [ myStyle , Html.Attributes.id "code-2" ]
+  [ code [  ] [ Html.text htmlCode ]
   ]
 
 graphic : Html Msg
 graphic = div [ myStyle ] [ Svg.text "Hello World! Graphics will go here..." ]
 
 myStyle : Html.Attribute Msg
-myStyle = Html.Attributes.style [("background-color", "#F0F0F0"), ("width", "500px")]
+myStyle = Html.Attributes.style [("background-color", "#F0F0F0"), ("width", "750px")]
 
 -- update
 
@@ -104,4 +110,26 @@ update msg model = ( model , Cmd.none )
 
 subscriptions : Model -> Sub Msg
 subscriptions model = Sub.none
+"""
+
+htmlCode : String
+htmlCode = """
+<html>
+<head>
+<title>Example: Poisson Disc Sampling</title>
+<link rel="stylesheet" href="styles/solarized-light.css">
+<script src="highlight.pack.js"></script>
+</head>
+<body>
+
+<div id="my-elm-block"></div>
+<script src="block.js"></script>
+<script>
+  var node = document.getElementById("my-elm-block");
+  var app  = Elm.Main.embed(node);
+  setTimeout(function() { hljs.highlightBlock(  document.getElementById("code-1") ); }, 1);
+  setTimeout(function() { hljs.highlightBlock(  document.getElementById("code-2") ); }, 1);
+</script>
+</body>
+</html>
 """
