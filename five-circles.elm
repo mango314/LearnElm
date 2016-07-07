@@ -1,13 +1,15 @@
 import Color exposing (..)
 import Collage exposing (..)
 import Element exposing (..)
+import Html exposing (..)
+import Signal exposing (..)
 
 check : Signal.Mailbox Int
 check x = Signal.mailbox x
 
-main: Element
+main: Html msg
 main =
-  collage 500 500
+  toHtml <| collage 500 500
     ( List.map (\x -> box  ) [ 0, 1, 2, 3, 4])
 
 

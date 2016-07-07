@@ -4,21 +4,24 @@ import Graphics.Element exposing (..)
 import Mouse
 import Signal
 
+-- BASIC MOUSE EVENT EXERCISE
 
 -- Mouse.isDown is true whenever the left mouse button
 -- is pressed down and false otherwise.
 
+-- WHEN MOUSE IS DOWN SQUARE IS RED, ELSE SQUARE IS BLUE
+
 main : Signal Element
 main =
   Signal.map g Mouse.isDown
-    
-    
-g: Bool -> Element  
-g x = 
-  collage 200 420 (f x) 
- 
+
+
+g: Bool -> Element
+g x =
+  collage 200 420 (f x)
+
 f : Bool -> List Form
-f x = 
+f x =
  if x then [move (0,-55) blueSquare] else [move (0,55) redSquare]
 
 
