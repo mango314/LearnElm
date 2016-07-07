@@ -1,20 +1,21 @@
 import Color exposing (..)
-import Graphics.Collage exposing (..)
-import Graphics.Element exposing (..)
+import Collage exposing (..)
+import Element exposing (..)
+import Html exposing (..)
 
 
 -- collage : Int -> Int -> List Form -> Element
 
-main : Element
+main : Html msg
 main =
-  collage 250 450
+   toHtml <| collage 250 450
     [ move (-55,  -55 )   blueSquare
     , rotate (degrees -90)  ( move (-55,   55 )    redSquare )
     , rotate (degrees  90)  ( move ( 55,  -55 )  greenSquare )
     , move ( 55,  55 ) yellowSquare
     ]
-    
--- 
+
+--
 varDashed x y = LineStyle x 2 Flat Smooth y 10
 
 -- traced : LineStyle -> Path -> Form
@@ -26,13 +27,13 @@ blueSquare =
 redSquare : Form
 redSquare  =
   traced (solid red) square
-  
+
 greenSquare : Form
 greenSquare =
   traced (solid green ) square
-  
+
 yellowSquare : Form
-yellowSquare = 
+yellowSquare =
   traced (varDashed yellow [8,4] ) square
 
 -- path : List ( Float, Float ) -> Path
