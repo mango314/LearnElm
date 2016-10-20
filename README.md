@@ -7,7 +7,7 @@ Instructions: **copy** + **paste** into left side of [elm-lang.org/try](http://e
 > however I noticed it is possible to generate example without perfectly adhering
 > to the Elm architecture
 >
-> More simple examples and big-kig examples coming up!O
+> More simple examples and big-kid examples coming up!O
 
 
 ![](http://i.imgur.com/cWpJVIq.png)
