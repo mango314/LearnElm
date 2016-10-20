@@ -1,0 +1,27 @@
+<html>
+
+<head></head>
+<body>
+
+  <div id="main"></div>
+  <script src="starry-night.js"></script>
+  <script>
+    var node = document.getElementById("main");
+    var app = Elm.VanGogh.embed(node);
+
+    app.ports.checkImageData.subscribe( function(imageName){
+
+        var imageData = getImageData(imageName);
+        apps.ports.getImageData,send(imageData);
+      });
+
+
+    function getImageData( imageName ) {
+      // have a real implementation!
+      return [1,2,3];
+    }
+  </script>
+
+</body>
+
+</html>
