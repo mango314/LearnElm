@@ -1,5 +1,4 @@
 <html>
-
 <head></head>
 <body>
 
@@ -12,16 +11,31 @@
     app.ports.checkImageData.subscribe( function(imageName){
 
         var imageData = getImageData(imageName);
-        apps.ports.getImageData,send(imageData);
+        // this was the typo:         app.ports.getImageData,send(imageData);
+        app.ports.getImageData.send(imageData);
       });
 
 
     function getImageData( imageName ) {
       // have a real implementation!
-      return [1,2,3];
+      var canvas = document.createElement("canvas")
+      canvas.setAttribute("width", 500)
+      canvas.setAttribute("height", 300);
+      ctx = canvas.getContext("2d");
+
+      var image = new Image();
+      image.src = "starry-night.jpg";
+
+      ctx.drawImage( image, 0, 0, 500, 300 );
+      // javascript "types" LOL
+      w = Array()
+      ctx.getImageData(0,0,500,300).data.forEach(function(t) { w.push(t);} );
+
+      //node.appendChild( canvas );
+      //node.removeChild( canvas );
+      return w;
     }
   </script>
 
 </body>
-
 </html>
