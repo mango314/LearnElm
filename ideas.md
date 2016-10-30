@@ -5,3 +5,4 @@ Suggestions:
 * Instagram
 * the MTA turntile data set is obvious far for Data Science courses -- create a decent UI for such analysis, also [CitiBike](https://www.citibikenyc.com/system-data) 
 * a zillion other things that should just be better in Elm
+* Candy Crush Saga / Bejeweled / [2048](https://www.youtube.com/watch?v=00Qu1kgsGpM)
