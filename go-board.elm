@@ -3,29 +3,36 @@
 import Html exposing (Html, button, div, text, beginnerProgram)
 import Html.Events exposing (onClick)
 
-import Svg exposing (svg, rect, line, circle)
+import Svg exposing (svg, rect, line, circle, Svg)
 import Svg.Attributes exposing ( width, height, fill, stroke, x1, x2, y1, y2, strokeWidth, cx, cy, r)
 
 
 main =
-  beginnerProgram { model = 0, view = view, update = update }
+  beginnerProgram { model = Model [] , view = view, update = update }
 
 type Msg = Increment | Decrement
 
-update msg model =
-  case msg of
-    Increment ->
-      model + 1
+type alias Model = { board: List Move }
 
-    Decrement ->
-      model - 1
+type Board = List Move
 
+type Move = Color Int Int
+
+type Color = Black | White
+
+update : Msg -> Model -> Model
+update msg model = model
+
+f : Int -> Int -> Svg Msg
 f a b =  line [ x1 (toString <| (a+1)*25 ), y1 (toString <| (b+1)*25  ), x2 (toString <| (a+19)*25 ), y2 (toString <| (b+ 1)*25 ), stroke "black" , strokeWidth "2" ] []
 
+g : Int -> Int -> Svg Msg
 g a b =  line [ x1 (toString <| (a+1)*25 ), y1 (toString <| (b+1)*25  ), x2 (toString <| (a+ 1)*25 ), y2 (toString <| (b+19)*25 ), stroke "black" , strokeWidth "2" ] []
 
+h: (Int, Int) -> Svg Msg
 h (a, b) =  circle [ cx ( toString <| (a+1)*25 ) , cy (toString <| (b+1)*25) , r (toString 5) ] []
 
+view: Model -> Html Msg
 view model =
   div []
     [ div []
