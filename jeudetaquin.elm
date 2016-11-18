@@ -47,8 +47,20 @@ k (a,b) =  circle [ cx ( toString <| (a+1)*25 ) , cy (toString <| (b+1)*25) , r 
 floor2: (Float, Float) -> (Int, Int)
 floor2 (a,b) = ( floor (19*a), floor (19*b))
 
+-- > List.sortBy (\t -> Tuple.first t)  <| List.map2 (,) [3,2,1] [4,5,6]
+-- [(1,6),(2,5),(3,4)] : List ( number, number1 )
+
 sort: List (Float, Float) -> List (Int, Int)
-sort x = List.map floor2 x
+sort x = let
+  c = Tuple.first  <| List.unzip x
+  d = Tuple.second <| List.unzip x
+
+  a = List.map Tuple.second <| List.sortBy (\t -> Tuple.first t)  <| List.map2 (,) c <| List.range 0 19
+  b = List.map Tuple.second <| List.sortBy (\t -> Tuple.first t)  <| List.map2 (,) d <| List.range 0 19
+    in
+    List.map2 (,) a b
+
+
 
 view: Model -> Html Msg
 view model =
