@@ -14,11 +14,11 @@ main =
   Html.program { init = init  , view = view, update = update , subscriptions = subscriptions}
 
 
-type alias Model = { pts: List Point }
+type alias Model = { pts: List (Float, Float)}
 
-type Point = (Float Float)
+type Point = Float Float
 
-type Msg = Generate | NewPoints ( List Point )
+type Msg = Generate | NewPoints ( List (Float, Float) )
 
 init : (Model, Cmd Msg)
 init = ( Model [], Cmd.none)
@@ -41,6 +41,15 @@ g a b =  line [ x1 (toString <| (a+1)*25 ), y1 (toString <| (b+1)*25  ), x2 (toS
 h: (Int, Int) -> Svg Msg
 h (a, b) =  circle [ cx ( toString <| (a+1)*25 ) , cy (toString <| (b+1)*25) , r (toString 5) ] []
 
+k: (Int, Int) -> Svg Msg
+k (a,b) =  circle [ cx ( toString <| (a+1)*25 ) , cy (toString <| (b+1)*25) , r (toString 5) ] []
+
+floor2: (Float, Float) -> (Int, Int)
+floor2 (a,b) = ( floor (19*a), floor (19*b))
+
+sort: List (Float, Float) -> List (Int, Int)
+sort x = List.map floor2 x
+
 view: Model -> Html Msg
 view model =
   div []
@@ -53,8 +62,8 @@ view model =
         ] ++
         ( List.map (\c -> f 0 c) <| List.range 0 18 ) ++
         ( List.map (\c -> g c 0) <| List.range 0 18 ) ++
-        ( List.map h [ (3,3), (3,9), (3,15), (9,3), (9,9), (9,15), (15,3), (15,9), (15,15) ] ) ++
-        ( List.map h model.pts )
+--        ( List.map h [ (3,3), (3,9), (3,15), (9,3), (9,9), (9,15), (15,3), (15,9), (15,15) ] ) ++
+        ( List.map k <| sort model.pts )
       ]
     ]
 
