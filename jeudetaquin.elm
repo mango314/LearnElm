@@ -10,14 +10,24 @@ import Svg.Attributes exposing ( width, height, fill, stroke, x1, x2, y1, y2, st
 import Random
 
 main =
-  beginnerProgram { model = 0 , view = view, update = update }
+  Html.program { init = init  , view = view, update = update , subscriptions = subscriptions}
 
-type Msg = Increment | Decrement
 
+type alias Model = { pts: List Int }
+
+type Msg = Generate | NewPoints ( List Int )
+
+init : (Model, Cmd Msg)
+init = ( Model [], Cmd.none)
 
 
 update : Msg -> Model -> Model
-update msg model = model
+update msg model =
+  case msg of
+    Generate ->
+      (model, Random.generate NewPoints ( Random.list ( Random.int 1 19 ) ) )
+    NewPoints x ->
+      ( Model x, Cmd.none )
 
 f : Int -> Int -> Svg Msg
 f a b =  line [ x1 (toString <| (a+1)*25 ), y1 (toString <| (b+1)*25  ), x2 (toString <| (a+19)*25 ), y2 (toString <| (b+ 1)*25 ), stroke "black" , strokeWidth "2" ] []
@@ -32,7 +42,8 @@ view: Model -> Html Msg
 view model =
   div []
     [ div []
-      [ text "Go Board"
+      [ text "Go Board",
+        button [onClick Generate] [ text "new pts" ]
       ]
     , div [] [ svg [ width "500", height "500" ] <|
         [ rect [ width "500", height "500", fill "#DCFFB4"] []
@@ -42,3 +53,6 @@ view model =
         ( List.map h [ (3,3), (3,9), (3,15), (9,3), (9,9), (9,15), (15,3), (15,9), (15,15) ] )
       ]
     ]
+
+subscriptions: Model -> Sub Msg
+subscriptions model = Sub.none
