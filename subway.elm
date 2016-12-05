@@ -28,50 +28,29 @@ view model =
       ] ++ trainStations
     ]
 
-f : Int -> String -> List ( Svg Msg )
-f yt station = [ circle [ cx "15", cy (toString   yt ), r "4", fill "#000000"] [] , text_ [ fontFamily "Helvetica", x "45", y (toString <|   yt + 5)] [ text station ] ]
+f : (Int , String) -> List ( Svg Msg )
+f ( yt ,station ) = [ circle [ cx "15", cy (toString   yt ), r "4", fill "#000000"] [] , text_ [ fontFamily "Helvetica", x "45", y (toString <|   yt + 5)] [ text station ] ]
+
+stations : List String
+stations = [ "205 St"
+  ,  "Bedford Park Blvd"
+  , "Kingsbridge Rd"
+  , "Fordham Rd"
+  , "182-183 Sts"
+  ,  "Tremont Ave"
+  , "174-175 St"
+  , "170 St"
+  ,  "167 St"
+  ,   "161 St - Yankee Stadium"
+  , "155 St",      "145 St"
+  ,  "125 St" ,  "59 St - Columbus Circle" ,  "7 Avenue",  "47-50 Sts - Rockefeller Center" ,  "42 St - Bryant Park"
+  ,  "34 St - Herald Sq" ,   "W 4 St - Washington Square" , "Broadway-Lafayette St / Bleeker St" ,  "Grand St" ,    "Dekalb Ave"
+  ,  "Atlantic Ave / Barclays Center",   "Union St",     "9 St",    "Prospect Ave",   "25 St",    "36 St",  "9 Ave"
+  ,  "Fort Hamilton Parkway" ,     "50 St" ,    "55 St",    "62 St" , "71 St",   "18 Ave" ,   "20 Ave", "Bay Parkway" ,  "25 Ave"
+  ,  "Bay 50 St" , "Coney Island - Stillwell Ave"
+  ]
 
 
 trainStations : List ( Html Msg )
 trainStations =
-  (f   20 "205 St" ) ++
-  (f   50 "Bedford Park Blvd" ) ++
-  (f   80 "Kingsbridge Rd" ) ++
-  (f 110  "Fordham Rd" ) ++
-  (f 140 "182-183 Sts" ) ++
-  (f 170 "Tremont Ave" ) ++
-  (f 200  "174-175 St" ) ++
-  (f 230 "170 St" ) ++
-  (f 260  "167 St" )
-  (f  290  "161 St - Yankee Stadium" ) ++
-  (f  320    "155 St" ) ++
-  (f  350     "145 St" ) ++
-  (f  380     "125 St" ) ++
-  (f  410     "59 St - Columbus Circle" ) ++
-  (f  440     "7 Avenue" ) ++
-  (f  470     "47-50 Sts - Rockefeller Center" ) ++
-  (f  500     "42 St - Bryant Park" ) ++
-  (f  530     "34 St - Herald Sq" ) ++
-  (f  560     "W 4 St - Washington Square" ) ++
-  (f  590     "Broadway-Lafayette St / Bleeker St" ) ++
-  (f  620     "Grand St" ) ++
-  (f  650     "Dekalb Ave" ) ++
-  (f  680     "Atlantic Ave / Barclays Center" ) ++
-  (f  710     "Union St" ) ++
-  (f  740     "9 St" ) ++
-  (f  770     "Prospect Ave" ) ++
-  (f  800     "25 St" ) ++
-  (f  830     "36 St" ) ++
-  (f  860     "9 Ave" ) ++
-  (f  890     "Fort Hamilton Parkway" ) ++
-  (f  920     "50 St" ) ++
-  (f  950     "55 St" ) ++
-  (f  980     "62 St" ) ++
-  (f 1010    "71 St" ) ++
-  (f 1040    "18 Ave" ) ++
-  (f 1070    "20 Ave" ) ++
-  (f 1100    "Bay Parkway" ) ++
-  (f 1130   "25 Ave" ) ++
-  (f 1160   "Bay 50 St" ) ++
-  (f 1190    "Coney Island - Stillwell Ave" )
-  ]
+  List.concat <| List.map f <| List.map2 (,) ( List.map (\x -> 30*x + 20) <| List.range 0 40 )  stations
