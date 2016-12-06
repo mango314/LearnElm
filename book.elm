@@ -48,10 +48,10 @@ getSlide x =
 view : Model -> Html Msg
 view model =
   div [ style [("width", "500px")] ]
-    [ div []
+    [ div [style [("margin-bottom", "3px")] ]
       [ div [ style [("display", "inline-block"), ("width", "25px"), ("text-align", "center")] ] [ button [ onClick Decrement , style [("width", "25px")]] [ text "-" ] ]
       , div [ style [("display", "inline-block"), ("width", "50px"), ("text-align", "center")] ] [ text (toString model.page)]
       , div [ style [("display", "inline-block"), ("width", "25px"), ("text-align", "center")] ] [ button [ onClick Increment , style [("width", "25px")]] [ text "+" ] ]
       ]
-    , div [] [ text <| getSlide model ]
+    , div [ style [("background-color", "#F0F0F0"), ("width", "500px"), ("height", "300px"), ("text-align", "top"), ("padding", "1px")]  ] [ text <| getSlide model ]
     ]
