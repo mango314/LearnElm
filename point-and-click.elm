@@ -38,13 +38,18 @@ basicDisplay model items = svg [ width "500", height "500", viewBox "0 0 500 500
 f : List (Int, Int) -> String
 f x = String.concat <| List.concat <| List.intersperse [" "] <| List.map ( \(a,b) -> [toString (50*(a+1)), "," , toString (50*(b+1))] ) x
 
-historyPath : Model -> Svg Msg
-historyPath ({current, showNeighbor, history} as model) =  polyline [ points <| f history, stroke "#B5B070", strokeWidth "4", fill "none" ] []
+historyPath : Model -> List (Svg Msg)
+historyPath ({current, showNeighbor, history} as model) =
+    let
+      steps = polyline [ points <| f history, stroke "#EDD660", strokeWidth "4", fill "none" ] []
+      circles = List.map (\(a,b) -> circle [ cx <| toString <| 50*(a+1), cy <| toString <| 50*(b+1), r "3", fill "#EB895B", strokeWidth "1" ] []  ) history
+    in
+      [steps] ++ circles
 
 view : Model -> Html Msg
 view model =
   if model.showNeighbor == True then
-      basicDisplay model <| ( neighbors model ) ++ [ historyPath model ]
+      basicDisplay model <| ( neighbors model ) ++ ( historyPath model )
   else
       basicDisplay model []
 
