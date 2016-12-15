@@ -20,4 +20,4 @@ We are in the process of developing Elm-D3 interoperability please this one test
 
 From a working **knight's tour** game with visualization of the past
 
-[Imgur](http://i.imgur.com/ORDg2KU.png)
+![Imgur](http://i.imgur.com/ORDg2KU.png)
