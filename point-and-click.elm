@@ -13,15 +13,16 @@ init = ( Model (2,3) False , Cmd.none )
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
+  -- Mouse.ups Drag
   Sub.none
 
-type Msg = Click | Drag
+type Msg = Click | Drag (Int, Int)
 type alias Model = { current : (Int, Int), showNeighbor : Bool }
 
 update msg model =
   case msg of
-    Click -> ({ model | showNeighbor = True  }, Cmd.none )
-    Drag  -> ({ model | showNeighbor = False }, Cmd.none )
+    Click  -> ({ model | showNeighbor = True  }, Cmd.none )
+    Drag x -> (Model x False, Cmd.none )
 
 view : Model -> Html Msg
 view model =
@@ -38,7 +39,7 @@ checkerBoard = List.map sq <| List.concat <| List.map (\y -> List.map (\x -> (x,
 
 checker : Model -> Html Msg
 checker model = let (a,b) = model.current in
-  circle [ cx <| toString <| 50*(a+1), cy <| toString <| 50*(b+1), r "20", fill "#EB9C99", stroke "#000000", strokeWidth "2", onMouseUp Click] []
+  circle [ cx <| toString <| 50*(a+1), cy <| toString <| 50*(b+1), r "20", fill "#EB9C99", stroke "#000000", strokeWidth "2", onMouseDown Click] []
 
 neighbors : Model -> List ( Html Msg )
 neighbors model = let
@@ -51,6 +52,6 @@ chk (a,b) = circle [ cx <| toString <| 50*(a+1), cy <| toString <| 50*(b+1), r "
 
 sq : (Int, Int) -> Html Msg
 sq (a,b) = case (a+b) % 2 of
-  0 -> rect [ x <| toString <| 50*a + 25 , y <| toString <| 50*b + 25, width "50", height "50", fill "#000000" ] []
-  1 -> rect [ x <| toString <| 50*a + 25 , y <| toString <| 50*b + 25, width "50", height "50", fill "#F0F0F0" ] []
-  _ -> rect [ x <| toString <| 50*a + 25 , y <| toString <| 50*b + 25, width "50", height "50" ] []
+  0 -> rect [ x <| toString <| 50*a + 25 , y <| toString <| 50*b + 25, width "50", height "50", fill "#000000", onMouseUp <| Drag (a,b) ] []
+  1 -> rect [ x <| toString <| 50*a + 25 , y <| toString <| 50*b + 25, width "50", height "50", fill "#F0F0F0", onMouseUp <| Drag (a,b) ] []
+  _ -> rect [ x <| toString <| 50*a + 25 , y <| toString <| 50*b + 25, width "50", height "50", onMouseUp <| Drag (a,b) ] []
