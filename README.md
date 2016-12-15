@@ -17,3 +17,7 @@ We are in the process of developing Elm-D3 interoperability please this one test
   * http://monsieurcactus.github.io/LearnElm/square.html (in progress)
   * try this one! http://monsieurcactus.github.io/LearnElm/starry-night.html (NEEDS INSTRUCTIONS)
   * a primitive game involving random permutations http://monsieurcactus.github.io/LearnElm/19by19.html
+
+From a working **knight's tour** game with visualization of the past
+
+[Imgur](http://i.imgur.com/ORDg2KU.png)
