@@ -21,15 +21,26 @@ type alias Model = { current : (Int, Int), showNeighbor : Bool }
 
 update msg model =
   case msg of
-    Click  -> ({ model | showNeighbor = True  }, Cmd.none )
-    Drag x -> (Model x False, Cmd.none )
+    Click  ->
+      if model.showNeighbor == True then
+        ({ model | showNeighbor = False  }, Cmd.none )
+      else
+        ({ model | showNeighbor = True   }, Cmd.none )
+    Drag x ->
+      if List.member x (nbr model.current) then
+        (Model x False, Cmd.none )
+      else
+        (model, Cmd.none)
+
+basicDisplay : Model -> List (Html Msg) -> Html Msg
+basicDisplay model items = svg [ width "500", height "500", viewBox "0 0 500 500" , style [ ("margin-left", "25px"), ("margin-top", "25px")]] <| [ board ] ++ checkerBoard ++ [ checker model ] ++ items
 
 view : Model -> Html Msg
 view model =
   if model.showNeighbor == True then
-    svg [ width "500", height "500", viewBox "0 0 500 500" , style [ ("margin-left", "25px"), ("margin-top", "25px")]] <| [ board ] ++ checkerBoard ++ [ checker model ] ++ ( neighbors model )
+      basicDisplay model ( neighbors model )
   else
-    svg [ width "500", height "500", viewBox "0 0 500 500" , style [ ("margin-left", "25px"), ("margin-top", "25px")]] <| [ board ] ++ checkerBoard ++ [ checker model ]
+      basicDisplay model []
 
 board: Html Msg
 board = rect [ x "0", y "0", width "500", height "500", fill "#E4F2E1" ] []
@@ -37,18 +48,22 @@ board = rect [ x "0", y "0", width "500", height "500", fill "#E4F2E1" ] []
 checkerBoard : List ( Html Msg )
 checkerBoard = List.map sq <| List.concat <| List.map (\y -> List.map (\x -> (x, y) ) <| List.range 0 8 )<| List.range 0 8
 
+shape : (Int, Int) -> List (Attribute msg)
+shape (a,b) = [ cx <| toString <| 50*(a+1), cy <| toString <| 50*(b+1), r "20", fill "#EB9C99", strokeWidth "2"]
+
 checker : Model -> Html Msg
-checker model = let (a,b) = model.current in
-  circle [ cx <| toString <| 50*(a+1), cy <| toString <| 50*(b+1), r "20", fill "#EB9C99", stroke "#000000", strokeWidth "2", onMouseDown Click] []
+checker model = circle ( (shape model.current) ++ [ stroke "#000000", onMouseDown Click] ) []
+
+nbr : (Int, Int) -> List (Int, Int)
+nbr (a,b) = List.filter ( \(m,n) -> (m > -1) &&(n > -1) && (m < 8) && (n < 8) ) [(a+2,b+1),(a-2,b+1),(a+2,b-1),(a-2,b-1),(a+1,b+2),(a-1,b+2),(a+1,b-2),(a-1,b-2)]
 
 neighbors : Model -> List ( Html Msg )
-neighbors model = let
-  (a,b) = model.current
-  nbr = [(a+2,b+1),(a-2,b+1),(a+2,b-1),(a-2,b-1),(a+1,b+2),(a-1,b+2),(a+1,b-2),(a-1,b-2)] in
-  List.map chk nbr
+neighbors model = List.map chk <| nbr model.current
 
 chk : (Int, Int) -> Html Msg
 chk (a,b) = circle [ cx <| toString <| 50*(a+1), cy <| toString <| 50*(b+1), r "20", fill "#F0F0F0", stroke "#000000", strokeWidth "2"] []
+
+
 
 sq : (Int, Int) -> Html Msg
 sq (a,b) = case (a+b) % 2 of
