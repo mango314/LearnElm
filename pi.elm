@@ -6,8 +6,9 @@
 -- http://elm-lang.org/examples/random
 -- http://elm-lang.org/examples/time
 
-import Html exposing ( text, div, li, Html, ul )
-import Html.Events exposing (..)
+import Html exposing ( text, div, li, Html, ul, Attribute)
+import Html.Attributes exposing ( style )
+--import Html.Events exposing (..)
 import Random
 
 --import Svg exposing (..)
@@ -48,9 +49,23 @@ subscriptions model = Time.every second Tick
 
 -- VIEW
 -- test view an HTML list of all the dice rolls
+-- https://color.adobe.com
+
+red : String
+red = "#EB895B"
+
+blue : String
+blue = "#3057E8"
+
+style1 : Attribute msg
+style1 = style [ ( "color",  blue ) ]
+
+f : (Int, Int) -> Html Msg
+f (a,b) =
+  if (a-200)*(a-200)+(b-200)*(b-200) < 200*200 then
+    li [ style1 ] [ text <| (toString a ) ++ " , "  ++ (toString b)]
+  else
+    li [ style [ ( "color",  red  ) ]] [ text <| (toString a ) ++ " , "  ++ (toString b)]
 
 view : Model -> Html Msg
-view model =
-  div []
-    [ ul [] <| List.map (\(a,b) -> li [] [text <| (toString a ) ++ " , "  ++ (toString b)] ) model.lotto
-    ]
+view model = div [ ]  [ ul [] <| List.map f model.lotto ]
