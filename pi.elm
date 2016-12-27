@@ -11,8 +11,8 @@ import Html.Attributes exposing ( style )
 --import Html.Events exposing (..)
 import Random
 
---import Svg exposing (..)
---import Svg.Attributes exposing (..)
+import Svg exposing ( Svg, svg, circle )
+import Svg.Attributes exposing ( r, fill, cx, cy )
 import Time exposing (Time, second)
 
 main =
@@ -38,13 +38,13 @@ type Msg = Tick Time | Update (Int, Int)
 update: Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of
-    Tick s -> (model, Random.generate Update <| Random.pair (Random.int 0 400) (Random.int 0 400) )
+    Tick s -> (model, Random.generate Update <| Random.pair (Random.int 0 500) (Random.int 0 500) )
     Update x -> ( Model <| model.lotto ++ [x] , Cmd.none)
 
 -- SUBSCRIPTIONS
 
 subscriptions : Model -> Sub Msg
-subscriptions model = Time.every second Tick
+subscriptions model = Time.every ( 0.125 * second ) Tick
 
 
 -- VIEW
@@ -58,14 +58,35 @@ blue : String
 blue = "#3057E8"
 
 style1 : Attribute msg
-style1 = style [ ( "color",  blue ) ]
+style1 = style [ ( "color",  red  ), ("font-family", "Helvetica") ]
 
+style2 : Attribute msg
+style2 = style [ ( "color",  blue ), ("font-family", "Helvetica") ]
+
+-- how to resolve the spacing issue for text ?
 f : (Int, Int) -> Html Msg
 f (a,b) =
-  if (a-200)*(a-200)+(b-200)*(b-200) < 200*200 then
+  if (a-250)*(a-250)+(b-250)*(b-250) < 250*250 then
     li [ style1 ] [ text <| (toString a ) ++ " , "  ++ (toString b)]
   else
-    li [ style [ ( "color",  red  ) ]] [ text <| (toString a ) ++ " , "  ++ (toString b)]
+    li [ style2 ] [ text <| (toString a ) ++ " , "  ++ (toString b)]
+
+-- how to abstract away the inside/outside conditional structure?
+g : (Int, Int) -> Html Msg
+g (a,b) =
+  if (a-250)*(a-250)+(b-250)*(b-250) < 250*250 then
+    circle [ r "3", fill red  , cx <| toString a, cy <| toString b ] []
+  else
+    circle [ r "3", fill blue , cx <| toString a, cy <| toString b ] []
+
+circles : Model -> List ( Svg Msg )
+circles model = List.map g model.lotto
 
 view : Model -> Html Msg
-view model = div [ ]  [ ul [] <| List.map f model.lotto ]
+view model =
+  div []
+    [ div [ style [("height", "500px"),("width", "150px"),("overflow-y", "auto"), ("display", "inline-block")] ]  [ ul [] <| List.map f model.lotto ]
+    , div [ style [("height", "500px"),("width", "500px"), ("display", "inline-block")] ]
+      [ svg [ style [("height", "500px"),("width", "500px"), ("background-color", "#F0F0F0")]] <| circles model
+      ]
+    ]
