@@ -21,3 +21,5 @@ We are in the process of developing Elm-D3 interoperability please this one test
 From a working **knight's tour** game with visualization of the past ([game](http://monsieurcactus.github.io/LearnElm/point-and-click.html))
 
 ![Imgur](http://i.imgur.com/ORDg2KU.png)
+
+Some of these apps are a bit theoretical.  Imagine trying to build a car and having hours-long discussions of the steering wheel.  Or the gear that connects the motor to the left front tire.  Back in Puerto Rico there is a auto-parts store called "House of Screws" and their motto is "Have a Screw Loose?" (literally "¿Le Falta un Tornillo?")
