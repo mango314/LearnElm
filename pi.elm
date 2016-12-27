@@ -6,7 +6,7 @@
 -- http://elm-lang.org/examples/random
 -- http://elm-lang.org/examples/time
 
-import Html exposing ( text, div, li, Html, ul, Attribute)
+import Html exposing ( text, div, li, Html, ul, Attribute, p)
 import Html.Attributes exposing ( style )
 --import Html.Events exposing (..)
 import Random
@@ -44,7 +44,7 @@ update msg model =
 -- SUBSCRIPTIONS
 
 subscriptions : Model -> Sub Msg
-subscriptions model = Time.every ( 0.125 * second ) Tick
+subscriptions model = Time.every ( 0.01 * second ) Tick
 
 
 -- VIEW
@@ -82,11 +82,37 @@ g (a,b) =
 circles : Model -> List ( Svg Msg )
 circles model = List.map g model.lotto
 
+-- "inside" is becoming a Monad
+
+h: (Int, Int) -> Int
+h(a,b) =
+  if (a-250)*(a-250)+(b-250)*(b-250) < 250*250 then
+    1
+  else
+    0
+
+inside : Model -> Int
+inside model =
+  List.sum <| List.map h model.lotto
+
+outside: Model -> Int
+outside model =
+  List.sum <| List.map ( \(a,b) -> 1 - ( h (a,b) ) ) model.lotto
+
+piEstimate : Model -> Float
+piEstimate model = 4*(toFloat <| inside model)/( toFloat <| List.length model.lotto )
+
 view : Model -> Html Msg
 view model =
   div []
-    [ div [ style [("height", "500px"),("width", "150px"),("overflow-y", "auto"), ("display", "inline-block")] ]  [ ul [] <| List.map f model.lotto ]
-    , div [ style [("height", "500px"),("width", "500px"), ("display", "inline-block")] ]
-      [ svg [ style [("height", "500px"),("width", "500px"), ("background-color", "#F0F0F0")]] <| circles model
-      ]
+    [ div []
+      [ p
+        [ style [("font-family", "Helvetica")] ]
+        [text <| "Approximation to pi: 4 × " ++ (toString <| inside model) ++ " / " ++ (toString <| List.length model.lotto) ++ " = " ++ ( toString <| piEstimate model) ] ]
+    , div []
+        [ div [ style [("height", "500px"),("width", "150px"),("overflow-y", "auto"), ("display", "inline-block")] ]  [ ul [] <| List.map f model.lotto ]
+        , div [ style [("height", "500px"),("width", "500px"), ("display", "inline-block")] ]
+          [ svg [ style [("height", "500px"),("width", "500px"), ("background-color", "#F0F0F0")]] <| circles model
+          ]
+        ]
     ]
