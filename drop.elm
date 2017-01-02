@@ -3,8 +3,9 @@
 import Html exposing (Html, div, button, text)
 import Html.Attributes exposing (style)
 import Html.Events exposing (onClick)
--- import Svg exposing (..)
--- import Svg.Attributes exposing (..)
+
+import Svg exposing ( Svg, svg, rect )
+import Svg.Attributes exposing ( width, height, x, y, fill )
 -- import Time exposing (Time, second, millisecond)
 
 main = Html.program {
@@ -35,10 +36,14 @@ f x = div [ style [("width", "25px"),("display", "inline-block")] ] [ button [ o
 g : Int -> Html Msg
 g x = div [ style [("width", "25px"), ("display", "inline-block"), ("text-align", "center")] ] [ text ( toString x )]
 
+h : (Int, Int) -> Svg Msg
+h (a,b) = rect [ width "20", height "20", x <| toString (25*b) , y <| toString (25*a) , fill "red" ] []
+
 view : Model -> Html Msg
 view model =
   div []
-  [ div [] <| List.map g model.stack
+  [ svg [] <| List.map h <| List.concat <| List.map (\b -> List.map (\a -> (a,b)) <| List.range 0 (b-1) ) <| model.stack
+  , div [] <| List.map g model.stack
   , div [] <| List.map f <| List.range 1 8
   ]
 
