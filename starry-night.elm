@@ -1,6 +1,6 @@
 port module VanGogh exposing (..)
 
-import Html exposing (div, span, button, text, Attribute, img, Html, program)
+import Html  exposing (div, span, button, text, Attribute, img, Html, program, h1, p)
 import Html.Events exposing (onClick, onMouseOver, onMouseOut)
 import Html.Attributes as Html exposing (style, src, width, height)
 import Mouse exposing (Position)
@@ -8,9 +8,10 @@ import Mouse exposing (Position)
 import Svg exposing (rect, svg, Svg)
 import Svg.Attributes as Svg exposing (width, height, viewBox, x, y, fill)
 
+-- array has to be completely replace with custom QuadTree
+-- starting point: http://elm-lang.org/examples/binary-tree
 import Array exposing (..)
-
-import Time exposing (Time, second)
+import Time  exposing (Time, second)
 
 
 main =
@@ -68,7 +69,6 @@ getB image (x,y) = toHex  <| get ( x*4 + 500*4*y + 2 ) image
 getColor: Array Int -> (Int,Int) -> String
 getColor image x = "rgb(" ++ (getR image x) ++ "," ++ (getG image x) ++ "," ++ (getB image x) ++ ")"
 
-
 square: Model -> Html Msg
 square model =
   if model.p then
@@ -77,28 +77,41 @@ square model =
     svg [ Svg.width "20", Svg.height "20", Svg.viewBox "0 0 20 20"] [ rect [ Svg.x "0", Svg.y "0", Svg.width "20", Svg.height "20", Svg.fill "rgb(255,255,255)"            ] [] ]
 
 f : Model -> Int -> Svg Msg
-f model t = rect [ Svg.x "0", Svg.y "0", Svg.width "10", Svg.height "10", Svg.fill "#A0A0A0"] []
+f model t = rect
+  [ Svg.x (toString <| 10*(t  % 50) )
+  , Svg.y (toString <| 10*(t // 50) )
+  , Svg.width  "10"
+  , Svg.height "10"
+  , Svg.fill <| getColor model.img ( 10*(t  % 50) , 10*(t  //  50) ) ] []
 
 pixel : Model -> Svg Msg
-pixel model = svg [ Svg.width "500" , Svg.height "500" ]
-  <| Array.toList <| Array.map (\x -> f model x ) <| Array.fromList
-  <| List.map (\x -> 10000*x) <| List.range 0 <| (Array.length model.img ) // 10000
+pixel model = svg [ Svg.width "500" , Svg.height "300" ]
+  <| Array.toList <|   Array.map (\x -> f model x ) <| Array.fromList
+  <| List.range 0 <| ( Array.length model.img     ) // (4*100)
 
 view: Model -> Html Msg
 view model =
 
-  div [ Html.width 500 ] [
-    div [   ]
-      [ div [ style [ ("width", "200px"), ("text-align", "left")  , ("display", "inline-block")] ] [ display model ]
-      , div [ style [ ("width", "100px"), ("text-align", "left")  , ("display", "inline-block")] ] [ text <| getColor model.img (model.x, model.y)  ]
-      , div [ style [ ("width", "75px") , ("text-align", "center"), ("display", "inline-block")] ] [ square model ]
-      , button [onClick CheckImage ] [ text "pixelate"]
+  div [ Html.width 500 ]
+    [ h1  [ style [("font-family", "Helvetica")] ] [ text "Starry Night"]
+    ,  div [ style [("margin", "2px")]  ]
+      [ div [ style [ ("width", "160px") , ("text-align", "left")  , ("display", "inline-block"), ("font-family", "Helvetica")] ] [ text "Current pixel color:" ]
+      , div [ style [ ("width", "40px")  , ("text-align", "center"), ("display", "inline-block")]  ] [ square model ]
+      , div [ style [ ("width", "225px") , ("text-align", "center"), ("display", "inline-block")]  ] [ ]
+      , button [onClick CheckImage, style [ ("width", "75px")] ] [ text "pixelate!"]
       ]
-    , div [ Html.width 500, style [ ("float", "left")]  ] [img [ src "starry-night.jpg", Html.width 500, Html.height 300,  onMouseOver ShowLocation, onMouseOut HideLocation] [] ]
-    , div [ Html.width 500 ] [ pixel model ]
+    , div [ Html.width 500 ] [img [ src "starry-night.jpg", Html.width 500, Html.height 300,  onMouseOver ShowLocation, onMouseOut HideLocation] [] ]
+    , div [ Html.width 500 ]
+      [ p [ style [("font-family", "Helvetica")] ]
+        [ text "Digital version of Van Gogh's Starry Night:"
+        , button [ onClick Increment ] [ text "+1" ]
+        , button [ onClick Decrement ] [ text "-1" ]
+        ]
+      ]
+    , div [ Html.width 500 ] [ rect [ Svg.width "500" , Svg.height "300", Svg.x "0", Svg.y "0" , Svg.fill "#F0F0F0"] [] , pixel model ]
     ]
 
-type Msg = MouseLocation Position | ShowLocation | HideLocation | CheckImage | GetImage ( Array Int )
+type Msg = MouseLocation Position | ShowLocation | HideLocation | CheckImage | GetImage ( Array Int ) | Increment | Decrement
 
 
 
@@ -117,6 +130,16 @@ update msg model =
       ( model, checkImageData "starry-night.jpg" )
     GetImage x ->
       ( {model | img = x  }, Cmd.none )
+    Increment  ->
+      if model.n < 11 then
+        ( {model | n = model.n + 1} , Cmd.none)
+      else
+        (model, Cmd.none )
+    Decrement  ->
+      if model.n > 2 then
+        ( {model | n = model.n - 1} , Cmd.none)
+      else
+        ( model, Cmd.none)
 
 port checkImageData : String -> Cmd msg
 
