@@ -22,17 +22,17 @@ main =
 -- https://developer.mozilla.org/en-US/docs/Web/CSS/float
 
 subscriptions: Model -> Sub Msg
-subscriptions model = Sub.batch [ Mouse.moves MouseLocation, getImageData GetImage  ]
+subscriptions model = Sub.batch [ Mouse.moves MouseLocation, getImageData GetImage, Time.every second Tick  ]
 
 -- http://package.elm-lang.org/packages/elm-lang/core/4.0.5/Array
 -- http://package.elm-lang.org/packages/elm-lang/core/4.0.5/List
-type alias Model = { n: Int, x: Int, y: Int, p: Bool, img: Array Int }
+type alias Model = { n: Int, x: Int, y: Int, p: Bool, img: Array Int , time: Int}
 
 type QuadTree a = Empty | Node a (QuadTree a) (QuadTree a) (QuadTree a) (QuadTree a)
 
 
 init : ( Model, Cmd Msg )
-init = ( { n = 0, x = 0, y = 0, p= False , img = Array.empty} , Cmd.none  )
+init = ( { n = 0, x = 0, y = 0, p= False , img = Array.empty, time = 0} , Cmd.none  )
 
 buttonStyle : Attribute msg
 buttonStyle = style [ ("width", "25px"), ("display", "inline-block") ]
@@ -77,17 +77,23 @@ square model =
     svg [ Svg.width "20", Svg.height "20", Svg.viewBox "0 0 20 20"] [ rect [ Svg.x "0", Svg.y "0", Svg.width "20", Svg.height "20", Svg.fill "rgb(255,255,255)"            ] [] ]
 
 f : Model -> Int -> Svg Msg
-f model t = rect
-  [ Svg.x (toString <| 10*(t  % 50) )
-  , Svg.y (toString <| 10*(t // 50) )
-  , Svg.width  "10"
-  , Svg.height "10"
-  , Svg.fill <| getColor model.img ( 10*(t  % 50) , 10*(t  //  50) ) ] []
+f model t =
+  let
+    dz = (2*5)*(2^model.n)
+    a  = ( t  % ((2*25)//(2^model.n)) )
+    b  = ( t // ((2*25)//(2^model.n)) )
+  in
+    rect
+      [ Svg.x      ( toString <| dz*a )
+      , Svg.y      ( toString <| dz*b )
+      , Svg.width  ( toString <| dz   )
+      , Svg.height ( toString <| dz   )
+      , Svg.fill  <| getColor model.img ( dz*a  , dz*b  ) ] []
 
 pixel : Model -> Svg Msg
 pixel model = svg [ Svg.width "500" , Svg.height "300" ]
   <| Array.toList <|   Array.map (\x -> f model x ) <| Array.fromList
-  <| List.range 0 <| ( Array.length model.img     ) // (4*100)
+  <| List.range 0 <| ( Array.length model.img     ) // (4*2*2*25*(4^model.n))
 
 view: Model -> Html Msg
 view model =
@@ -98,7 +104,7 @@ view model =
       [ div [ style [ ("width", "160px") , ("text-align", "left")  , ("display", "inline-block"), ("font-family", "Helvetica")] ] [ text "Current pixel color:" ]
       , div [ style [ ("width", "40px")  , ("text-align", "center"), ("display", "inline-block")]  ] [ square model ]
       , div [ style [ ("width", "225px") , ("text-align", "center"), ("display", "inline-block")]  ] [ ]
-      , button [onClick CheckImage, style [ ("width", "75px")] ] [ text "pixelate!"]
+--      , button [onClick CheckImage, style [ ("width", "75px")] ] [ text "pixelate!"]
       ]
     , div [ Html.width 500 ] [img [ src "starry-night.jpg", Html.width 500, Html.height 300,  onMouseOver ShowLocation, onMouseOut HideLocation] [] ]
     , div [ Html.width 500 ]
@@ -111,7 +117,8 @@ view model =
     , div [ Html.width 500 ] [ rect [ Svg.width "500" , Svg.height "300", Svg.x "0", Svg.y "0" , Svg.fill "#F0F0F0"] [] , pixel model ]
     ]
 
-type Msg = MouseLocation Position | ShowLocation | HideLocation | CheckImage | GetImage ( Array Int ) | Increment | Decrement
+type Msg =
+  MouseLocation Position | ShowLocation | HideLocation | CheckImage | GetImage ( Array Int ) | Increment | Decrement | Tick Time
 
 
 
@@ -131,13 +138,18 @@ update msg model =
     GetImage x ->
       ( {model | img = x  }, Cmd.none )
     Increment  ->
-      if model.n < 11 then
+      if model.n < 3 then
         ( {model | n = model.n + 1} , Cmd.none)
       else
         (model, Cmd.none )
     Decrement  ->
-      if model.n > 2 then
+      if model.n > -1 then
         ( {model | n = model.n - 1} , Cmd.none)
+      else
+        ( model, Cmd.none)
+    Tick t ->
+      if model.time == 0 then
+        ( model, checkImageData "starry-night.jpg" )
       else
         ( model, Cmd.none)
 
