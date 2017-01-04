@@ -9912,7 +9912,11 @@ var _user$project$VanGogh$view = function (model) {
 											{
 												ctor: '::',
 												_0: {ctor: '_Tuple2', _0: 'font-family', _1: 'Helvetica'},
-												_1: {ctor: '[]'}
+												_1: {
+													ctor: '::',
+													_0: {ctor: '_Tuple2', _0: 'width', _1: '500'},
+													_1: {ctor: '[]'}
+												}
 											}),
 										_1: {ctor: '[]'}
 									},
@@ -9926,7 +9930,16 @@ var _user$project$VanGogh$view = function (model) {
 												{
 													ctor: '::',
 													_0: _elm_lang$html$Html_Events$onClick(_user$project$VanGogh$Increment),
-													_1: {ctor: '[]'}
+													_1: {
+														ctor: '::',
+														_0: _elm_lang$html$Html_Attributes$style(
+															{
+																ctor: '::',
+																_0: {ctor: '_Tuple2', _0: 'float', _1: 'right'},
+																_1: {ctor: '[]'}
+															}),
+														_1: {ctor: '[]'}
+													}
 												},
 												{
 													ctor: '::',
@@ -9940,7 +9953,16 @@ var _user$project$VanGogh$view = function (model) {
 													{
 														ctor: '::',
 														_0: _elm_lang$html$Html_Events$onClick(_user$project$VanGogh$Decrement),
-														_1: {ctor: '[]'}
+														_1: {
+															ctor: '::',
+															_0: _elm_lang$html$Html_Attributes$style(
+																{
+																	ctor: '::',
+																	_0: {ctor: '_Tuple2', _0: 'float', _1: 'right'},
+																	_1: {ctor: '[]'}
+																}),
+															_1: {ctor: '[]'}
+														}
 													},
 													{
 														ctor: '::',
