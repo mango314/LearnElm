@@ -7,3 +7,4 @@ Suggestions:
 * a zillion other things that should just be better in Elm
 * Candy Crush Saga / Bejeweled / [2048](https://www.youtube.com/watch?v=00Qu1kgsGpM)
 * Elm should be robust enough to emulate (or completely replace) your favorite jQuery or React UI -- try the [inspirograph](http://nathanfriend.io/inspirograph/)
+* I always admired the website of **Rafael Albuquerque** [rafael.pt](http://rafael.pt/#index) and even used his designs on my own web page https://github.com/rafaqueque/rafael.pt this can be re-done in Elm (for a more functional)
