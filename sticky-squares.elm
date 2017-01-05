@@ -27,6 +27,16 @@ main = Html.program
 
 type alias Model = { n : Int }
 
+-- somewhat nervous here.  do I want a doubly-linked list?
+type Graph a = Empty | Node a (Graph a) (Graph a) (Graph a) (Graph a)
+
+-- examples of graphs
+-- Aztec Diamond
+-- m x n rectangle
+
+rectangle : Graph Svg
+rectangle = Empty
+
 type Msg = Go
 
 init : ( Model, Cmd Msg )
