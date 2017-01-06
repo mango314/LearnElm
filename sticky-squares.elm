@@ -1,5 +1,7 @@
 import Html exposing (Html, div)
 
+import Svg exposing (Svg)
+
 -- the goal of stacky squares" is an excuse
 -- to develops arrays from scratch
 -- Elm arrays are known to be "unsafe"
@@ -28,14 +30,31 @@ main = Html.program
 type alias Model = { n : Int }
 
 -- somewhat nervous here.  do I want a doubly-linked list?
-type Graph a = Empty | Node a (Graph a) (Graph a) (Graph a) (Graph a)
+-- DOUBLY LINKED LISTS NOT POSSIBLE IN FP
+-- http://stackoverflow.com/questions/10386616/how-to-implement-doubly-linked-lists
+-- https://wiki.haskell.org/Tying_the_Knot
+-- https://wiki.haskell.org/ZipperA
+type Graph a = Empty | Node a (Graph a) (Graph a)
+
+
 
 -- examples of graphs
 -- Aztec Diamond
 -- m x n rectangle
 
-rectangle : Graph Svg
-rectangle = Empty
+rectangle : Int -> Int -> Graph (Svg Msg)
+rectangle m n =
+  -- WRONG!
+  case (m,n) of
+    (m,0) -> Empty
+    (0,n) -> Empty
+    (m,1) -> Graph ( svg [] [] )   Empty               ( rectangle (m-1) 1 )
+    (1,n) -> Graph ( svg [] [] ) ( rectangle 1 (n-1) )   Empty
+    _     ->
+      let
+        G = rectangle (m-1) n
+      in
+        Graph ( svg [] [] ) (  ) (  )
 
 type Msg = Go
 
