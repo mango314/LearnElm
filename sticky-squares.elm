@@ -27,45 +27,47 @@ main = Html.program
 
 -- Model
 
-type alias Model = { n : Int }
-
 -- somewhat nervous here.  do I want a doubly-linked list?
 -- DOUBLY LINKED LISTS NOT POSSIBLE IN FP
 -- http://stackoverflow.com/questions/10386616/how-to-implement-doubly-linked-lists
 -- https://wiki.haskell.org/Tying_the_Knot
 -- https://wiki.haskell.org/ZipperA
-type Graph a = Empty | Node a (Graph a) (Graph a)
+-- GRAPH THEORY (esp cycles) ARE NOT POSSIBLE IN FP
+-- http://stackoverflow.com/questions/9732084/how-do-you-represent-a-graph-in-haskell
+
+type alias Model = {
+  -- add a single method to retrieve the value at n, n+1, n-1
+  stacks : List ( List Maybe Int ),
+  -- the squares have to connect to the ground somehow!
+  hackenbrush : List ( Tree (Int Int) ) }
 
 
+type Tree a = Empty | Node a (Tree a) (Tree a)
 
 -- examples of graphs
 -- Aztec Diamond
 -- m x n rectangle
 
-rectangle : Int -> Int -> Graph (Svg Msg)
-rectangle m n =
-  -- WRONG!
-  case (m,n) of
-    (m,0) -> Empty
-    (0,n) -> Empty
-    (m,1) -> Graph ( svg [] [] )   Empty               ( rectangle (m-1) 1 )
-    (1,n) -> Graph ( svg [] [] ) ( rectangle 1 (n-1) )   Empty
-    _     ->
-      let
-        G = rectangle (m-1) n
-      in
-        Graph ( svg [] [] ) (  ) (  )
+rectangle : Int -> Int -> List ( List ( Maybe (Svg Msg) ) )
+rectangle m n = List.map ( \y -> List.map (\x -> Nothing ) ( List.range 0 (m-1) ) ) ( List.range 0 (n-1) )
 
-type Msg = Go
+type Msg = Drop
+
+-- UPDATE & VIEW
+-- kind of a dull app right now
 
 init : ( Model, Cmd Msg )
-init = ( Model 0, Cmd.none )
+init = ( Model ( rectangle 10 5 ) [], Cmd.none )
+
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model = (model, Cmd.none)
 
 view : Model -> Html Msg
 view model = div [] []
+
+-- SUBSCRIPTIONS
+-- no interactions with the "outside world" at this particular moment!
 
 subscriptions : Model -> Sub Msg
 subscriptions model = Sub.none
