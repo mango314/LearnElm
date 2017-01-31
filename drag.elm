@@ -6,6 +6,8 @@ import Mouse exposing (Position)
 import Svg exposing (Svg, svg, rect)
 import Svg.Attributes exposing (width, height, color, fill, x, y)
 
+import Dict exposing (fromList, Dict )
+
 -- objective: three squares you can click and drag (representing the 50 states)
 
 main = Html.program
@@ -17,7 +19,7 @@ main = Html.program
 
 -- Model
 
-type alias Model = { a: Tile, b: Tile, c: Tile }
+type alias Model = Dict Int Tile
 
 type alias Tile =
   { position : Position
@@ -27,21 +29,23 @@ type alias Tile =
 type alias Drag =
   { start   : Position
   , current : Position
+  , tile    : Int
   }
 
-init : (Model, Cmd Msg)
+init : ( Dict Int Tile, Cmd Msg)
 init =
-  ( Model
-    ( Tile ( Position 100 200 ) Nothing )
-    ( Tile ( Position 200 200 ) Nothing )
-    ( Tile ( Position 300 200 ) Nothing )
+  ( Dict.fromList
+    [ ( 1, Tile ( Position 100 200 ) Nothing )
+    , ( 2, Tile ( Position 200 200 ) Nothing )
+    , ( 3, Tile ( Position 300 200 ) Nothing )
+    ]
   , Cmd.none
   )
 
 -- UPDATE
 
 type Msg =
-  DragStart (Model -> Tile) Position  | DragAt (Model -> Tile) Position | DragEnd (Model -> Tile) Position
+  DragStart Int Position  | DragAt Int Position | DragEnd Int Position
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model = ( f msg model, Cmd.none)
@@ -55,23 +59,30 @@ f msg model =
 
 -- SUBSCRIPTIONS
 
-subscriptions: Model -> Sub Msg
-subscriptions model = Sub.batch [ g model.a (\x -> x.a), g model.b (\x -> x.b), g model.c (\x -> x.c) ]
+getTile : Int -> Model -> Tile
+getTile n model =
+  case Dict.get n model of
+        Just a  -> a
+        Nothing -> Tile ( Position (100*n) 200 ) Nothing
 
-g : Tile -> ( Model -> Tile ) -> Sub Msg
-g tile getTile =
+subscriptions: Model -> Sub Msg
+subscriptions model =
+  Sub.batch <| List.map (\n -> g n <| getTile n model ) [1,2,3]
+
+g : Int -> Tile -> Sub Msg
+g n tile =
   case tile.drag of
     Nothing -> Sub.none
-    Just _  -> Sub.batch [ Mouse.moves ( DragAt getTile ) , Mouse.ups ( DragEnd getTile ) ]
+    Just _  -> Sub.batch [ Mouse.moves ( DragAt n) , Mouse.ups ( DragEnd n ) ]
 
-box : Tile -> ( Model -> Tile ) -> String -> Svg Msg
-box t getTile col = rect
+box : Int -> Tile -> String -> Svg Msg
+box n t col = rect
   [ width  "10"
   , height "10"
   , x (toString t.position.x)
   , y (toString t.position.y)
   , fill col
-  , onMouseDown getTile ] [ ]
+  , onMouseDown n ] [ ]
 
 -- VIEWS
 
@@ -82,10 +93,10 @@ view model = svg
   , style [ ("margin", "10") ]
   ]
   [ rect [ width "100%", height "100%", fill "#F0F0F0" ] [ ]
-  , box model.a (\x -> x.a) "#FF0000"
-  , box model.b (\x -> x.b) "#00FF00"
-  , box model.c (\x -> x.c) "#0000FF"
+  , box 1 ( getTile 1 model ) "#FF0000"
+  , box 2 ( getTile 2 model ) "#00FF00"
+  , box 3 ( getTile 3 model ) "#0000FF"
   ]
 
-onMouseDown : (Model -> Tile) -> Attribute Msg
-onMouseDown getTile = on "mousedown" ( Decode.map (DragStart getTile) Mouse.position )
+onMouseDown : Int -> Attribute Msg
+onMouseDown x = on "mousedown" ( Decode.map (DragStart x) Mouse.position )
