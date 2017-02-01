@@ -52,8 +52,8 @@ update msg model = ( f msg model, Cmd.none)
 f : Msg -> Model -> Model
 f msg model =
   case msg of
-    DragStart n xy -> insert n ( Tile (getTile n model).position (Just (Drag xy xy)) ) model
-    DragAt    n xy -> insert n ( Tile (getTile n model).position (Maybe.map (\{start} -> Drag start xy) (getTile n model).drag) ) model
+    DragStart n xy  -> insert n ( Tile (getTile n model).position (Just (Drag xy xy)) ) model
+    DragAt    n xy  -> insert n ( Tile (getTile n model).position (Maybe.map (\{start} -> Drag start xy) (getTile n model).drag) ) model
     DragEnd   n xy  -> insert n ( Tile (getPosition (getTile n model)) Nothing)  model
 
 getPosition : Tile -> Position
@@ -87,13 +87,17 @@ g n tile =
     Just _  -> Sub.batch [ Mouse.moves ( DragAt n) , Mouse.ups ( DragEnd n ) ]
 
 box : Int -> Tile -> String -> Svg Msg
-box n t col = rect
-  [ width  "10"
-  , height "10"
-  , x (toString t.position.x)
-  , y (toString t.position.y)
-  , fill col
-  , onMouseDown n ] [ ]
+box n t col =
+  let
+    pos = getPosition t
+  in
+    rect
+      [ width  "20"
+      , height "20"
+      , x (toString pos.x)
+      , y (toString pos.y)
+      , fill col
+      , onMouseDown n ] [ ]
 
 -- VIEWS
 
@@ -101,7 +105,7 @@ view : Model -> Html Msg
 view model = svg
   [ width "500"
   , height "500"
-  , style [ ("margin", "10") ]
+  , style [ ("margin", "20") ]
   ]
   [ rect [ width "100%", height "100%", fill "#F0F0F0" ] [ ]
   , box 1 ( getTile 1 model ) "#FF0000"
