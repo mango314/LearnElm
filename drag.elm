@@ -6,7 +6,7 @@ import Mouse exposing (Position)
 import Svg exposing (Svg, svg, rect)
 import Svg.Attributes exposing (width, height, color, fill, x, y)
 
-import Dict exposing (fromList, Dict )
+import Dict exposing (fromList, update, insert, Dict )
 
 -- objective: three squares you can click and drag (representing the 50 states)
 
@@ -29,7 +29,6 @@ type alias Tile =
 type alias Drag =
   { start   : Position
   , current : Position
-  , tile    : Int
   }
 
 init : ( Dict Int Tile, Cmd Msg)
@@ -53,9 +52,21 @@ update msg model = ( f msg model, Cmd.none)
 f : Msg -> Model -> Model
 f msg model =
   case msg of
-    DragStart tile xy -> model
-    DragAt    tile xy -> model
-    DragEnd   tile xy -> model
+    DragStart n xy -> insert n ( Tile (getTile n model).position (Just (Drag xy xy)) ) model
+    DragAt    n xy -> insert n ( Tile (getTile n model).position (Maybe.map (\{start} -> Drag start xy) (getTile n model).drag) ) model
+    DragEnd   n xy  -> insert n ( Tile (getPosition (getTile n model)) Nothing)  model
+
+getPosition : Tile -> Position
+getPosition {position, drag} =
+  case drag of
+    Nothing ->
+      position
+
+    Just {start,current} ->
+      Position
+        (position.x + current.x - start.x)
+        (position.y + current.y - start.y)
+
 
 -- SUBSCRIPTIONS
 
