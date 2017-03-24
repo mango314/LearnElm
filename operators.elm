@@ -1,4 +1,4 @@
-import Html exposing (Html, Attribute, button, div, text, h1, p, span, pre)
+import Html exposing (Html, Attribute, button, div, text, h1, p, span, pre, code)
 import Html.Events exposing (onClick)
 import Html.Attributes exposing (style)
 
@@ -17,6 +17,8 @@ update msg model =
 
 
 style1 = style [ ("font-family" , "Helvetica"), ("width", "750px"), ("margin-left", "1%"), ("text-align", "justify")]
+
+styleop = style [ ("font-size", "50px") ]
 
 view model =
   div [ style1 ]
@@ -43,4 +45,11 @@ view model =
            , text " That's too bad.  We are going to take a simple thing and make it uncomprehensible.  When we are done,"
            , text "nobody will understand so much as to tie their own shoes in this language."
            ]
+    , h1 [ styleop ] [ text "&" ]
+    , p [] [ text "the and operator has type blah blah blah"]
+    , h1 [ styleop ] [ text "~."]
+    , p [] [ text "this connective has to do with lenses" ]
+    , h1 [ styleop ] [ text "=:" ]
+    , p [] [ text "Not to be confused with ", code [] [text ":="], text "or ", code [] [text "::"], text "this operator is about Haskell Maps"
+           , text " ''Map'' is such an ambiguous word anyway."]
     ]
