@@ -8286,26 +8286,91 @@ var _user$project$Main$view = function (model) {
 							_0: _elm_lang$html$Html$text('with additional rigor provided from the Haskell programming language. '),
 							_1: {
 								ctor: '::',
-								_0: _elm_lang$html$Html$text('On the right side, if you won\'t know what <p> or <h1> mean, then maybe you can roll your own.'),
-								_1: {ctor: '[]'}
+								_0: _elm_lang$html$Html$text('We could imagine programming websites without ever mentioning the '),
+								_1: {
+									ctor: '::',
+									_0: A2(
+										_elm_lang$html$Html$code,
+										{ctor: '[]'},
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html$text('<p>'),
+											_1: {ctor: '[]'}
+										}),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$html$Html$text(' and '),
+										_1: {
+											ctor: '::',
+											_0: A2(
+												_elm_lang$html$Html$code,
+												{ctor: '[]'},
+												{
+													ctor: '::',
+													_0: _elm_lang$html$Html$text('<h1>'),
+													_1: {ctor: '[]'}
+												}),
+											_1: {
+												ctor: '::',
+												_0: _elm_lang$html$Html$text(' symbols.  We can roll our own.'),
+												_1: {ctor: '[]'}
+											}
+										}
+									}
+								}
 							}
 						}
 					}),
 				_1: {
 					ctor: '::',
 					_0: A2(
-						_elm_lang$html$Html$div,
+						_elm_lang$html$Html$p,
+						{ctor: '[]'},
 						{
 							ctor: '::',
-							_0: _elm_lang$html$Html_Attributes$style(
-								{
+							_0: _elm_lang$html$Html$text('Haskell and Reflex-Dom pose a '),
+							_1: {
+								ctor: '::',
+								_0: A2(
+									_elm_lang$html$Html$span,
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html_Attributes$style(
+											{
+												ctor: '::',
+												_0: {ctor: '_Tuple2', _0: 'font-weight', _1: 'bold'},
+												_1: {ctor: '[]'}
+											}),
+										_1: {ctor: '[]'}
+									},
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html$text('storytelling challenge'),
+										_1: {ctor: '[]'}
+									}),
+								_1: {
 									ctor: '::',
-									_0: {ctor: '_Tuple2', _0: 'height', _1: '10px'},
-									_1: {ctor: '[]'}
-								}),
-							_1: {ctor: '[]'}
-						},
-						{ctor: '[]'}),
+									_0: _elm_lang$html$Html$text(' as the coder is being asked to put together a peculiar formulation of HTML with exotic types '),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$html$Html$text('and unusual operators, invoking the full force of monads, applicatives and lenses. '),
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$html$Html$text('A great question to ask is whether all of this is really necessary? '),
+											_1: {
+												ctor: '::',
+												_0: _elm_lang$html$Html$text('Our goal is to have the user be able to poke and prod the various symbols and types and processes '),
+												_1: {
+													ctor: '::',
+													_0: _elm_lang$html$Html$text('which will guide us towards making beautiful websites.'),
+													_1: {ctor: '[]'}
+												}
+											}
+										}
+									}
+								}
+							}
+						}),
 					_1: {
 						ctor: '::',
 						_0: A2(
@@ -8313,39 +8378,15 @@ var _user$project$Main$view = function (model) {
 							{ctor: '[]'},
 							{
 								ctor: '::',
-								_0: _elm_lang$html$Html$text('Haskell and Reflex-Dom pose a '),
-								_1: {
-									ctor: '::',
-									_0: A2(
-										_elm_lang$html$Html$span,
-										{ctor: '[]'},
-										{
-											ctor: '::',
-											_0: _elm_lang$html$Html$text('storytelling challenge'),
-											_1: {ctor: '[]'}
-										}),
-									_1: {
+								_0: A2(
+									_elm_lang$html$Html$pre,
+									{ctor: '[]'},
+									{
 										ctor: '::',
-										_0: _elm_lang$html$Html$text('as the coder is being ask to put together a peculiar formulation of HTML with exotic types'),
-										_1: {
-											ctor: '::',
-											_0: _elm_lang$html$Html$text('and unusual operators, invoking the full force of monoids, applicatives and lenses. '),
-											_1: {
-												ctor: '::',
-												_0: _elm_lang$html$Html$text('A great question to ask is whether all of this is really necessary? '),
-												_1: {
-													ctor: '::',
-													_0: _elm_lang$html$Html$text('Our goal is to have the user be able to poke and prod the various symbols and types and processes '),
-													_1: {
-														ctor: '::',
-														_0: _elm_lang$html$Html$text('which will guide us towards making beautiful websites.'),
-														_1: {ctor: '[]'}
-													}
-												}
-											}
-										}
-									}
-								}
+										_0: _elm_lang$html$Html$text('svg :: MonadWidget t m => m ()\nsvg =  do\n  element \"svg\" (def & namespace .~ Just \"http://www.w3.org/2000/svg\") blank\n  return ()'),
+										_1: {ctor: '[]'}
+									}),
+								_1: {ctor: '[]'}
 							}),
 						_1: {
 							ctor: '::',
@@ -8354,152 +8395,260 @@ var _user$project$Main$view = function (model) {
 								{ctor: '[]'},
 								{
 									ctor: '::',
-									_0: A2(
-										_elm_lang$html$Html$pre,
-										{ctor: '[]'},
-										{
+									_0: _elm_lang$html$Html$text('Reflex-Dom is too complicated.  If I need to draw svg, I can just write a single tag'),
+									_1: {
+										ctor: '::',
+										_0: A2(
+											_elm_lang$html$Html$pre,
+											{ctor: '[]'},
+											{
+												ctor: '::',
+												_0: _elm_lang$html$Html$text('<svg></svg>'),
+												_1: {ctor: '[]'}
+											}),
+										_1: {
 											ctor: '::',
-											_0: _elm_lang$html$Html$text('svg :: MonadWidget t m => m ()\n    svg =  do\n      element \"svg\" (def & namespace .~ Just \"http://www.w3.org/2000/svg\") blank\n      return ()'),
-											_1: {ctor: '[]'}
-										}),
-									_1: {ctor: '[]'}
+											_0: _elm_lang$html$Html$text(' That\'s too bad.  We are going to take a simple thing and make it uncomprehensible.  When we are done, '),
+											_1: {
+												ctor: '::',
+												_0: _elm_lang$html$Html$text('nobody will understand so much as to tie their own shoes in this language.'),
+												_1: {ctor: '[]'}
+											}
+										}
+									}
 								}),
 							_1: {
 								ctor: '::',
 								_0: A2(
-									_elm_lang$html$Html$p,
-									{ctor: '[]'},
+									_elm_lang$html$Html$h1,
 									{
 										ctor: '::',
-										_0: _elm_lang$html$Html$text('My initial reaction is that Reflex-Dom is too complicated.  If I need to draw svg, I can just write a single tag'),
-										_1: {
-											ctor: '::',
-											_0: A2(
-												_elm_lang$html$Html$pre,
-												{ctor: '[]'},
-												{
-													ctor: '::',
-													_0: _elm_lang$html$Html$text('<svg></svg>'),
-													_1: {ctor: '[]'}
-												}),
-											_1: {
+										_0: _user$project$Main$styleop,
+										_1: {ctor: '[]'}
+									},
+									{
+										ctor: '::',
+										_0: A2(
+											_elm_lang$html$Html$a,
+											{
 												ctor: '::',
-												_0: _elm_lang$html$Html$text(' That\'s too bad.  We are going to take a simple thing and make it uncomprehensible.  When we are done,'),
+												_0: _elm_lang$html$Html_Attributes$href('https://hackage.haskell.org/package/base-4.9.1.0/docs/Data-Function.html'),
 												_1: {
 													ctor: '::',
-													_0: _elm_lang$html$Html$text('nobody will understand so much as to tie their own shoes in this language.'),
+													_0: _elm_lang$html$Html_Attributes$style(
+														{
+															ctor: '::',
+															_0: {ctor: '_Tuple2', _0: 'color', _1: '#30A3E8'},
+															_1: {ctor: '[]'}
+														}),
 													_1: {ctor: '[]'}
 												}
-											}
-										}
+											},
+											{
+												ctor: '::',
+												_0: _elm_lang$html$Html$text('&'),
+												_1: {ctor: '[]'}
+											}),
+										_1: {ctor: '[]'}
 									}),
 								_1: {
 									ctor: '::',
 									_0: A2(
-										_elm_lang$html$Html$h1,
+										_elm_lang$html$Html$p,
+										{ctor: '[]'},
 										{
 											ctor: '::',
-											_0: _user$project$Main$styleop,
-											_1: {ctor: '[]'}
-										},
-										{
-											ctor: '::',
-											_0: _elm_lang$html$Html$text('&'),
+											_0: _elm_lang$html$Html$text('the and operator has type blah blah blah'),
 											_1: {ctor: '[]'}
 										}),
 									_1: {
 										ctor: '::',
 										_0: A2(
-											_elm_lang$html$Html$p,
-											{ctor: '[]'},
+											_elm_lang$html$Html$h1,
 											{
 												ctor: '::',
-												_0: _elm_lang$html$Html$text('the and operator has type blah blah blah'),
+												_0: _user$project$Main$styleop,
+												_1: {ctor: '[]'}
+											},
+											{
+												ctor: '::',
+												_0: _elm_lang$html$Html$text('.~'),
 												_1: {ctor: '[]'}
 											}),
 										_1: {
 											ctor: '::',
 											_0: A2(
-												_elm_lang$html$Html$h1,
+												_elm_lang$html$Html$p,
+												{ctor: '[]'},
 												{
 													ctor: '::',
-													_0: _user$project$Main$styleop,
-													_1: {ctor: '[]'}
-												},
-												{
-													ctor: '::',
-													_0: _elm_lang$html$Html$text('~.'),
+													_0: _elm_lang$html$Html$text('this connective has to do with lenses'),
 													_1: {ctor: '[]'}
 												}),
 											_1: {
 												ctor: '::',
 												_0: A2(
-													_elm_lang$html$Html$p,
-													{ctor: '[]'},
+													_elm_lang$html$Html$h1,
 													{
 														ctor: '::',
-														_0: _elm_lang$html$Html$text('this connective has to do with lenses'),
+														_0: _user$project$Main$styleop,
+														_1: {ctor: '[]'}
+													},
+													{
+														ctor: '::',
+														_0: _elm_lang$html$Html$text('=:'),
 														_1: {ctor: '[]'}
 													}),
 												_1: {
 													ctor: '::',
 													_0: A2(
-														_elm_lang$html$Html$h1,
+														_elm_lang$html$Html$p,
+														{ctor: '[]'},
 														{
 															ctor: '::',
-															_0: _user$project$Main$styleop,
-															_1: {ctor: '[]'}
-														},
-														{
-															ctor: '::',
-															_0: _elm_lang$html$Html$text('=:'),
-															_1: {ctor: '[]'}
-														}),
-													_1: {
-														ctor: '::',
-														_0: A2(
-															_elm_lang$html$Html$p,
-															{ctor: '[]'},
-															{
+															_0: _elm_lang$html$Html$text('Not to be confused with '),
+															_1: {
 																ctor: '::',
-																_0: _elm_lang$html$Html$text('Not to be confused with '),
+																_0: A2(
+																	_elm_lang$html$Html$code,
+																	{ctor: '[]'},
+																	{
+																		ctor: '::',
+																		_0: _elm_lang$html$Html$text(':='),
+																		_1: {ctor: '[]'}
+																	}),
 																_1: {
 																	ctor: '::',
-																	_0: A2(
-																		_elm_lang$html$Html$code,
-																		{ctor: '[]'},
-																		{
-																			ctor: '::',
-																			_0: _elm_lang$html$Html$text(':='),
-																			_1: {ctor: '[]'}
-																		}),
+																	_0: _elm_lang$html$Html$text(' or '),
 																	_1: {
 																		ctor: '::',
-																		_0: _elm_lang$html$Html$text('or '),
+																		_0: A2(
+																			_elm_lang$html$Html$code,
+																			{ctor: '[]'},
+																			{
+																				ctor: '::',
+																				_0: _elm_lang$html$Html$text('::'),
+																				_1: {ctor: '[]'}
+																			}),
 																		_1: {
 																			ctor: '::',
-																			_0: A2(
-																				_elm_lang$html$Html$code,
-																				{ctor: '[]'},
-																				{
-																					ctor: '::',
-																					_0: _elm_lang$html$Html$text('::'),
-																					_1: {ctor: '[]'}
-																				}),
+																			_0: _elm_lang$html$Html$text(' this operator is about Haskell Maps'),
 																			_1: {
 																				ctor: '::',
-																				_0: _elm_lang$html$Html$text('this operator is about Haskell Maps'),
-																				_1: {
-																					ctor: '::',
-																					_0: _elm_lang$html$Html$text(' \'\'Map\'\' is such an ambiguous word anyway.'),
-																					_1: {ctor: '[]'}
-																				}
+																				_0: _elm_lang$html$Html$text(' \'\'Map\'\' is such an ambiguous word anyway.'),
+																				_1: {ctor: '[]'}
 																			}
 																		}
 																	}
 																}
+															}
+														}),
+													_1: {
+														ctor: '::',
+														_0: A2(
+															_elm_lang$html$Html$h1,
+															{
+																ctor: '::',
+																_0: _user$project$Main$styleop,
+																_1: {ctor: '[]'}
+															},
+															{
+																ctor: '::',
+																_0: _elm_lang$html$Html$text('=>'),
+																_1: {ctor: '[]'}
 															}),
-														_1: {ctor: '[]'}
+														_1: {
+															ctor: '::',
+															_0: A2(
+																_elm_lang$html$Html$p,
+																{ctor: '[]'},
+																{
+																	ctor: '::',
+																	_0: _elm_lang$html$Html$text('This is called a '),
+																	_1: {
+																		ctor: '::',
+																		_0: A2(
+																			_elm_lang$html$Html$span,
+																			{
+																				ctor: '::',
+																				_0: _elm_lang$html$Html_Attributes$style(
+																					{
+																						ctor: '::',
+																						_0: {ctor: '_Tuple2', _0: 'font-weight', _1: 'bold'},
+																						_1: {ctor: '[]'}
+																					}),
+																				_1: {ctor: '[]'}
+																			},
+																			{
+																				ctor: '::',
+																				_0: _elm_lang$html$Html$text('type constraint'),
+																				_1: {ctor: '[]'}
+																			}),
+																		_1: {
+																			ctor: '::',
+																			_0: _elm_lang$html$Html$text(' and the type constraint is that '),
+																			_1: {
+																				ctor: '::',
+																				_0: A2(
+																					_elm_lang$html$Html$code,
+																					{ctor: '[]'},
+																					{
+																						ctor: '::',
+																						_0: _elm_lang$html$Html$text('m'),
+																						_1: {ctor: '[]'}
+																					}),
+																				_1: {
+																					ctor: '::',
+																					_0: _elm_lang$html$Html$text(' is a '),
+																					_1: {
+																						ctor: '::',
+																						_0: A2(
+																							_elm_lang$html$Html$code,
+																							{ctor: '[]'},
+																							{
+																								ctor: '::',
+																								_0: _elm_lang$html$Html$text('MonadWidget'),
+																								_1: {ctor: '[]'}
+																							}),
+																						_1: {
+																							ctor: '::',
+																							_0: _elm_lang$html$Html$text('.'),
+																							_1: {ctor: '[]'}
+																						}
+																					}
+																				}
+																			}
+																		}
+																	}
+																}),
+															_1: {
+																ctor: '::',
+																_0: A2(
+																	_elm_lang$html$Html$h1,
+																	{
+																		ctor: '::',
+																		_0: _user$project$Main$styleop,
+																		_1: {ctor: '[]'}
+																	},
+																	{
+																		ctor: '::',
+																		_0: _elm_lang$html$Html$text('()'),
+																		_1: {ctor: '[]'}
+																	}),
+																_1: {
+																	ctor: '::',
+																	_0: A2(
+																		_elm_lang$html$Html$p,
+																		{ctor: '[]'},
+																		{
+																			ctor: '::',
+																			_0: _elm_lang$html$Html$text('I must double check.  This is basically the empty set.  In Haskell we have a symbol for \"nothing\".'),
+																			_1: {ctor: '[]'}
+																		}),
+																	_1: {ctor: '[]'}
+																}
+															}
+														}
 													}
 												}
 											}
