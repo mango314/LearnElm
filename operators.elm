@@ -1,3 +1,5 @@
+module Operators exposing (..)
+
 import Html exposing (Html, Attribute, button, div, text, h1, p, span, pre, code, a)
 import Html.Events exposing (onClick)
 import Html.Attributes exposing (style, href)
@@ -18,9 +20,9 @@ update msg model =
 
 style1 = style [ ("font-family" , "Helvetica"), ("width", "750px"), ("margin-left", "1%"), ("text-align", "justify")]
 
-styleop = style [ ("font-size", "50px"), ("font-weight", "100") ]
+styleop = style [ ("font-size", "40px"), ("font-weight", "100") ]
 
-styleop1 = style [ ("font-size", "40px") ]
+styleop1 = style [ ("font-size", "30px") ]
 
 h1_ url x = case url of
   Just url_  -> h1 [ styleop ] [ a [ href url_
@@ -90,9 +92,9 @@ svg =  do
     , p [ ] [ text "This is called a "
             , boldText "type constraint"
             , text " and the type constraint is that "
-            , code [] [ text "m"]
+            , code_ "m"
             , text " is a "
-            , code [] [ text "MonadWidget" ]
+            , code_ "MonadWidget"
             , text "."
             ]
     , h1_ Nothing "()"
@@ -102,14 +104,38 @@ svg =  do
            , code_ "blank :: Monad m => m ()"
            , text  """This is a way of saying "Nothing" in the category of """
            , boldText "Widgets"
-           , text "."
+           , text ". The source code to "
+           , code_ "blank"
+           , text " is "
+           , pre [] [ text """blank :: forall m. Monad m => m ()
+blank = return ()"""]
+           , text "could it be redundant?"
            ]
     , h1_fn Nothing "def"
-    , p [] [ text "this connective has to do with lenses" ]
+    , p []  [ text "The default value of an "
+            , code_ "ElementConfig"
+            , text ".  Nothing more to say."]
     , h1_fn Nothing "namespace"
     , p [] [ text "this connective has to do with lenses" ]
     , h1_fn Nothing """namespace .~ Just "xyz" """
     , p [] [ text "this connective has to do with lenses" ]
     , h1_fn Nothing "element"
-    , p [] [ text "of all of these, Element is the most involved being lower-level abstraction than elAttr, elDynAttr, etc." ]
+    , p []  [ text "Of all of these, Element is the most involved being lower-level abstraction than "
+            , code_ "elAttr"
+            , text ", "
+            , code_ "elDynAttr"
+            , text  ", etc."
+            , pre [] [ text "element :: Text -> ElementConfig er t m -> m a -> m (Element er (DomBuilderSpace m) t, a)" ]
+            , pre [ style [("color", "#E0E0E0")] ] [ text """default element :: ( MonadTransControl f
+                     , StT f a ~ a
+                     , m ~ f m'
+                     , DomBuilderSpace m' ~ DomBuilderSpace m
+                     , DomBuilder t m'
+                     ) =>""" ]
+            , pre [] [ text "Text -> ElementConfig er t m -> m a -> m (Element er (DomBuilderSpace m) t, a)" ]
+            , text "This function requires an "
+            , code_ "ElementConfig"
+            , text " which includes things like namespaces and attributes, as well as a child widget of any kind. "
+            , text "These elements expose their events and attributes (including the ones you jusst set)."
+            ]
     ]
