@@ -20,9 +20,9 @@ update msg model =
 
 style1 = style [ ("font-family" , "Helvetica"), ("width", "750px"), ("margin-left", "1%"), ("text-align", "justify")]
 
-styleop = style [ ("font-size", "40px"), ("font-weight", "100") ]
+styleop = style [ ("font-size", "30px"), ("font-weight", "100") ]
 
-styleop1 = style [ ("font-size", "30px") ]
+styleop1 = style [ ("font-size", "20px") ]
 
 h1_ url x = case url of
   Just url_  -> h1 [ styleop ] [ a [ href url_
@@ -133,9 +133,23 @@ blank = return ()"""]
                      , DomBuilder t m'
                      ) =>""" ]
             , pre [] [ text "Text -> ElementConfig er t m -> m a -> m (Element er (DomBuilderSpace m) t, a)" ]
+            , pre [] [ text "element t cfg child = liftWith $ \run -> element t (liftElementConfig cfg) $ run child" ]
             , text "This function requires an "
             , code_ "ElementConfig"
             , text " which includes things like namespaces and attributes, as well as a child widget of any kind. "
-            , text "These elements expose their events and attributes (including the ones you jusst set)."
+            , text "These elements expose their events and attributes (including the ones you just set)."
+            ]
+    , p []  [ text "An alternative way of writing the "
+            , code_ "svg"
+            , text " function, could be to write in terms of "
+            , code_ "elAttrDynNS'"
+            , text " which is written in terms of "
+            , code_ "element"
+            , text "but without the scary lenses.  I think my way is more flexible. "
+            , pre [] [ text """svg' :: MonadWidget t m => m ()
+svg' = do
+  elDynAttrNS' (Just "http://www.w3.org/2000/svg") "svg" def blank
+  return () """ ]
+            , text "this was no easier than using the Haskell lenses."
             ]
     ]
