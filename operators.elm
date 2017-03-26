@@ -20,6 +20,8 @@ style1 = style [ ("font-family" , "Helvetica"), ("width", "750px"), ("margin-lef
 
 styleop = style [ ("font-size", "50px") ]
 
+styleop1 = style [ ("font-size", "40px") ]
+
 view model =
   div [ style1 ]
     [ h1 [] [ text "Reflex Dom Basics" ]
@@ -50,14 +52,22 @@ svg =  do
            ]
     , h1 [ styleop ] [ a [ href "https://hackage.haskell.org/package/base-4.9.1.0/docs/Data-Function.html"
                          , style [( "color", "#30A3E8") ]
-                         ] [ text "&" ] ]
-    , p [] [ text "the and operator has type blah blah blah"]
-    , h1 [ styleop ] [ text ".~"]
+                         ] [ code [] [ text "&" ] ] ]
+    , p [] [ text "the and operator has type blah blah blah"
+           , text "it is very similar to "
+           , code [] [ text "$"]
+           , text "which hast type"
+           , code [] [ pre [] [ text "($) :: (a -> b) -> a -> b"] ]
+           , text "this operator has a similar looking type"
+           , code [] [ pre [] [ text "(&) :: a -> (a -> b) -> b" ] ]
+           , text "these have to do with the math notion of associativity and whether we evaluate function on the right or on the left"
+           ]
+    , h1 [ styleop ] [ code [] [  text ".~"] ]
     , p [] [ text "this connective has to do with lenses" ]
-    , h1 [ styleop ] [ text "=:" ]
+    , h1 [ styleop ] [ code [] [  text "=:"  ] ]
     , p [] [ text "Not to be confused with ", code [] [text ":="], text " or ", code [] [text "::"], text " this operator is about Haskell Maps"
            , text " ''Map'' is such an ambiguous word anyway."]
-    , h1 [ styleop ] [ text "=>" ]
+    , h1 [ styleop ] [ code [] [ text "=>" ] ]
     , p [ ] [ text "This is called a "
             , span [ style [("font-weight", "bold")] ] [ text "type constraint"]
             , text " and the type constraint is that "
@@ -66,6 +76,16 @@ svg =  do
             , code [] [ text "MonadWidget" ]
             , text "."
             ]
-    , h1 [ styleop ] [ text "()" ]
+    , h1 [ styleop ] [ code [] [ text "()" ] ]
     , p [] [ text """I must double check.  This is basically the empty set.  In Haskell we have a symbol for "nothing"."""]
+    , h1 [ styleop1 ] [ code [] [ text "blank"] ]
+    , p [] [ text "this connective has to do with lenses" ]
+    , h1 [ styleop1 ] [ code [] [ text "def"] ]
+    , p [] [ text "this connective has to do with lenses" ]
+    , h1 [ styleop1 ] [ code [] [ text "namespace"] ]
+    , p [] [ text "this connective has to do with lenses" ]
+    , h1 [ styleop1 ] [ code [] [ text "def & namespace"] ]
+    , p [] [ text "this connective has to do with lenses" ]
+    , h1 [ styleop1 ] [ code [] [ text "element"] ]
+    , p [] [ text "of all of these, Element is the most involved being lower-level abstraction than elAttr, elDynAttr, etc." ]
     ]
