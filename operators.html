@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html><head><meta charset="UTF-8"><title>Main</title><style>html,head,body { padding:0; margin:0; }
+<html><head><meta charset="UTF-8"><title>Operators</title><style>html,head,body { padding:0; margin:0; }
 body { font-family: calibri, helvetica, arial, sans-serif; }</style><script type="text/javascript">
 (function() {
 'use strict';
@@ -8231,7 +8231,7 @@ var _elm_lang$html$Html_Events$Options = F2(
 	function (a, b) {
 		return {stopPropagation: a, preventDefault: b};
 	});
-var _user$project$Main$code_ = function (x) {
+var _user$project$Operators$code_ = function (x) {
 	return A2(
 		_elm_lang$html$Html$code,
 		{ctor: '[]'},
@@ -8241,7 +8241,7 @@ var _user$project$Main$code_ = function (x) {
 			_1: {ctor: '[]'}
 		});
 };
-var _user$project$Main$boldText = function (x) {
+var _user$project$Operators$boldText = function (x) {
 	return A2(
 		_elm_lang$html$Html$span,
 		{
@@ -8260,23 +8260,23 @@ var _user$project$Main$boldText = function (x) {
 			_1: {ctor: '[]'}
 		});
 };
-var _user$project$Main$styleop1 = _elm_lang$html$Html_Attributes$style(
+var _user$project$Operators$styleop1 = _elm_lang$html$Html_Attributes$style(
+	{
+		ctor: '::',
+		_0: {ctor: '_Tuple2', _0: 'font-size', _1: '30px'},
+		_1: {ctor: '[]'}
+	});
+var _user$project$Operators$styleop = _elm_lang$html$Html_Attributes$style(
 	{
 		ctor: '::',
 		_0: {ctor: '_Tuple2', _0: 'font-size', _1: '40px'},
-		_1: {ctor: '[]'}
-	});
-var _user$project$Main$styleop = _elm_lang$html$Html_Attributes$style(
-	{
-		ctor: '::',
-		_0: {ctor: '_Tuple2', _0: 'font-size', _1: '50px'},
 		_1: {
 			ctor: '::',
 			_0: {ctor: '_Tuple2', _0: 'font-weight', _1: '100'},
 			_1: {ctor: '[]'}
 		}
 	});
-var _user$project$Main$h1_ = F2(
+var _user$project$Operators$h1_ = F2(
 	function (url, x) {
 		var _p0 = url;
 		if (_p0.ctor === 'Just') {
@@ -8284,7 +8284,7 @@ var _user$project$Main$h1_ = F2(
 				_elm_lang$html$Html$h1,
 				{
 					ctor: '::',
-					_0: _user$project$Main$styleop,
+					_0: _user$project$Operators$styleop,
 					_1: {ctor: '[]'}
 				},
 				{
@@ -8328,7 +8328,7 @@ var _user$project$Main$h1_ = F2(
 				_elm_lang$html$Html$h1,
 				{
 					ctor: '::',
-					_0: _user$project$Main$styleop,
+					_0: _user$project$Operators$styleop,
 					_1: {ctor: '[]'}
 				},
 				{
@@ -8369,7 +8369,7 @@ var _user$project$Main$h1_ = F2(
 				});
 		}
 	});
-var _user$project$Main$h1_fn = F2(
+var _user$project$Operators$h1_fn = F2(
 	function (url, x) {
 		var _p1 = url;
 		if (_p1.ctor === 'Just') {
@@ -8377,7 +8377,7 @@ var _user$project$Main$h1_fn = F2(
 				_elm_lang$html$Html$h1,
 				{
 					ctor: '::',
-					_0: _user$project$Main$styleop,
+					_0: _user$project$Operators$styleop,
 					_1: {ctor: '[]'}
 				},
 				{
@@ -8421,7 +8421,7 @@ var _user$project$Main$h1_fn = F2(
 				_elm_lang$html$Html$h1,
 				{
 					ctor: '::',
-					_0: _user$project$Main$styleop,
+					_0: _user$project$Operators$styleop,
 					_1: {ctor: '[]'}
 				},
 				{
@@ -8462,7 +8462,7 @@ var _user$project$Main$h1_fn = F2(
 				});
 		}
 	});
-var _user$project$Main$style1 = _elm_lang$html$Html_Attributes$style(
+var _user$project$Operators$style1 = _elm_lang$html$Html_Attributes$style(
 	{
 		ctor: '::',
 		_0: {ctor: '_Tuple2', _0: 'font-family', _1: 'Helvetica'},
@@ -8480,12 +8480,12 @@ var _user$project$Main$style1 = _elm_lang$html$Html_Attributes$style(
 			}
 		}
 	});
-var _user$project$Main$view = function (model) {
+var _user$project$Operators$view = function (model) {
 	return A2(
 		_elm_lang$html$Html$div,
 		{
 			ctor: '::',
-			_0: _user$project$Main$style1,
+			_0: _user$project$Operators$style1,
 			_1: {ctor: '[]'}
 		},
 		{
@@ -8514,13 +8514,13 @@ var _user$project$Main$view = function (model) {
 								_0: _elm_lang$html$Html$text('We could imagine programming websites without ever mentioning the '),
 								_1: {
 									ctor: '::',
-									_0: _user$project$Main$code_('<p>'),
+									_0: _user$project$Operators$code_('<p>'),
 									_1: {
 										ctor: '::',
 										_0: _elm_lang$html$Html$text(' and '),
 										_1: {
 											ctor: '::',
-											_0: _user$project$Main$code_('<h1>'),
+											_0: _user$project$Operators$code_('<h1>'),
 											_1: {
 												ctor: '::',
 												_0: _elm_lang$html$Html$text(' symbols.  We can roll our own.'),
@@ -8542,7 +8542,7 @@ var _user$project$Main$view = function (model) {
 							_0: _elm_lang$html$Html$text('Haskell and Reflex-Dom pose a '),
 							_1: {
 								ctor: '::',
-								_0: _user$project$Main$boldText('storytelling challenge'),
+								_0: _user$project$Operators$boldText('storytelling challenge'),
 								_1: {
 									ctor: '::',
 									_0: _elm_lang$html$Html$text(' as the coder is being asked to put together a peculiar formulation of HTML with exotic types '),
@@ -8615,7 +8615,7 @@ var _user$project$Main$view = function (model) {
 							_1: {
 								ctor: '::',
 								_0: A2(
-									_user$project$Main$h1_,
+									_user$project$Operators$h1_,
 									_elm_lang$core$Maybe$Just('https://hackage.haskell.org/package/base-4.9.1.0/docs/Data-Function.html'),
 									'&'),
 								_1: {
@@ -8693,7 +8693,7 @@ var _user$project$Main$view = function (model) {
 										}),
 									_1: {
 										ctor: '::',
-										_0: A2(_user$project$Main$h1_, _elm_lang$core$Maybe$Nothing, '.~'),
+										_0: A2(_user$project$Operators$h1_, _elm_lang$core$Maybe$Nothing, '.~'),
 										_1: {
 											ctor: '::',
 											_0: A2(
@@ -8706,7 +8706,7 @@ var _user$project$Main$view = function (model) {
 												}),
 											_1: {
 												ctor: '::',
-												_0: A2(_user$project$Main$h1_, _elm_lang$core$Maybe$Nothing, '=:'),
+												_0: A2(_user$project$Operators$h1_, _elm_lang$core$Maybe$Nothing, '=:'),
 												_1: {
 													ctor: '::',
 													_0: A2(
@@ -8753,7 +8753,7 @@ var _user$project$Main$view = function (model) {
 														}),
 													_1: {
 														ctor: '::',
-														_0: A2(_user$project$Main$h1_, _elm_lang$core$Maybe$Nothing, '=>'),
+														_0: A2(_user$project$Operators$h1_, _elm_lang$core$Maybe$Nothing, '=>'),
 														_1: {
 															ctor: '::',
 															_0: A2(
@@ -8764,33 +8764,19 @@ var _user$project$Main$view = function (model) {
 																	_0: _elm_lang$html$Html$text('This is called a '),
 																	_1: {
 																		ctor: '::',
-																		_0: _user$project$Main$boldText('type constraint'),
+																		_0: _user$project$Operators$boldText('type constraint'),
 																		_1: {
 																			ctor: '::',
 																			_0: _elm_lang$html$Html$text(' and the type constraint is that '),
 																			_1: {
 																				ctor: '::',
-																				_0: A2(
-																					_elm_lang$html$Html$code,
-																					{ctor: '[]'},
-																					{
-																						ctor: '::',
-																						_0: _elm_lang$html$Html$text('m'),
-																						_1: {ctor: '[]'}
-																					}),
+																				_0: _user$project$Operators$code_('m'),
 																				_1: {
 																					ctor: '::',
 																					_0: _elm_lang$html$Html$text(' is a '),
 																					_1: {
 																						ctor: '::',
-																						_0: A2(
-																							_elm_lang$html$Html$code,
-																							{ctor: '[]'},
-																							{
-																								ctor: '::',
-																								_0: _elm_lang$html$Html$text('MonadWidget'),
-																								_1: {ctor: '[]'}
-																							}),
+																						_0: _user$project$Operators$code_('MonadWidget'),
 																						_1: {
 																							ctor: '::',
 																							_0: _elm_lang$html$Html$text('.'),
@@ -8804,7 +8790,7 @@ var _user$project$Main$view = function (model) {
 																}),
 															_1: {
 																ctor: '::',
-																_0: A2(_user$project$Main$h1_, _elm_lang$core$Maybe$Nothing, '()'),
+																_0: A2(_user$project$Operators$h1_, _elm_lang$core$Maybe$Nothing, '()'),
 																_1: {
 																	ctor: '::',
 																	_0: A2(
@@ -8817,7 +8803,7 @@ var _user$project$Main$view = function (model) {
 																		}),
 																	_1: {
 																		ctor: '::',
-																		_0: A2(_user$project$Main$h1_fn, _elm_lang$core$Maybe$Nothing, 'blank'),
+																		_0: A2(_user$project$Operators$h1_fn, _elm_lang$core$Maybe$Nothing, 'blank'),
 																		_1: {
 																			ctor: '::',
 																			_0: A2(
@@ -8828,17 +8814,40 @@ var _user$project$Main$view = function (model) {
 																					_0: _elm_lang$html$Html$text('There really isn\'t much to blank.  It is has type '),
 																					_1: {
 																						ctor: '::',
-																						_0: _user$project$Main$code_('blank :: Monad m => m ()'),
+																						_0: _user$project$Operators$code_('blank :: Monad m => m ()'),
 																						_1: {
 																							ctor: '::',
 																							_0: _elm_lang$html$Html$text('This is a way of saying \"Nothing\" in the category of '),
 																							_1: {
 																								ctor: '::',
-																								_0: _user$project$Main$boldText('Widgets'),
+																								_0: _user$project$Operators$boldText('Widgets'),
 																								_1: {
 																									ctor: '::',
-																									_0: _elm_lang$html$Html$text('.'),
-																									_1: {ctor: '[]'}
+																									_0: _elm_lang$html$Html$text('. The source code to '),
+																									_1: {
+																										ctor: '::',
+																										_0: _user$project$Operators$code_('blank'),
+																										_1: {
+																											ctor: '::',
+																											_0: _elm_lang$html$Html$text(' is '),
+																											_1: {
+																												ctor: '::',
+																												_0: A2(
+																													_elm_lang$html$Html$pre,
+																													{ctor: '[]'},
+																													{
+																														ctor: '::',
+																														_0: _elm_lang$html$Html$text('blank :: forall m. Monad m => m ()\nblank = return ()'),
+																														_1: {ctor: '[]'}
+																													}),
+																												_1: {
+																													ctor: '::',
+																													_0: _elm_lang$html$Html$text('could it be redundant?'),
+																													_1: {ctor: '[]'}
+																												}
+																											}
+																										}
+																									}
 																								}
 																							}
 																						}
@@ -8846,7 +8855,7 @@ var _user$project$Main$view = function (model) {
 																				}),
 																			_1: {
 																				ctor: '::',
-																				_0: A2(_user$project$Main$h1_fn, _elm_lang$core$Maybe$Nothing, 'def'),
+																				_0: A2(_user$project$Operators$h1_fn, _elm_lang$core$Maybe$Nothing, 'def'),
 																				_1: {
 																					ctor: '::',
 																					_0: A2(
@@ -8854,12 +8863,20 @@ var _user$project$Main$view = function (model) {
 																						{ctor: '[]'},
 																						{
 																							ctor: '::',
-																							_0: _elm_lang$html$Html$text('this connective has to do with lenses'),
-																							_1: {ctor: '[]'}
+																							_0: _elm_lang$html$Html$text('The default value of an '),
+																							_1: {
+																								ctor: '::',
+																								_0: _user$project$Operators$code_('ElementConfig'),
+																								_1: {
+																									ctor: '::',
+																									_0: _elm_lang$html$Html$text('.  Nothing more to say.'),
+																									_1: {ctor: '[]'}
+																								}
+																							}
 																						}),
 																					_1: {
 																						ctor: '::',
-																						_0: A2(_user$project$Main$h1_fn, _elm_lang$core$Maybe$Nothing, 'namespace'),
+																						_0: A2(_user$project$Operators$h1_fn, _elm_lang$core$Maybe$Nothing, 'namespace'),
 																						_1: {
 																							ctor: '::',
 																							_0: A2(
@@ -8872,7 +8889,7 @@ var _user$project$Main$view = function (model) {
 																								}),
 																							_1: {
 																								ctor: '::',
-																								_0: A2(_user$project$Main$h1_fn, _elm_lang$core$Maybe$Nothing, 'namespace .~ Just \"xyz\" '),
+																								_0: A2(_user$project$Operators$h1_fn, _elm_lang$core$Maybe$Nothing, 'namespace .~ Just \"xyz\" '),
 																								_1: {
 																									ctor: '::',
 																									_0: A2(
@@ -8885,7 +8902,7 @@ var _user$project$Main$view = function (model) {
 																										}),
 																									_1: {
 																										ctor: '::',
-																										_0: A2(_user$project$Main$h1_fn, _elm_lang$core$Maybe$Nothing, 'element'),
+																										_0: A2(_user$project$Operators$h1_fn, _elm_lang$core$Maybe$Nothing, 'element'),
 																										_1: {
 																											ctor: '::',
 																											_0: A2(
@@ -8893,8 +8910,82 @@ var _user$project$Main$view = function (model) {
 																												{ctor: '[]'},
 																												{
 																													ctor: '::',
-																													_0: _elm_lang$html$Html$text('of all of these, Element is the most involved being lower-level abstraction than elAttr, elDynAttr, etc.'),
-																													_1: {ctor: '[]'}
+																													_0: _elm_lang$html$Html$text('Of all of these, Element is the most involved being lower-level abstraction than '),
+																													_1: {
+																														ctor: '::',
+																														_0: _user$project$Operators$code_('elAttr'),
+																														_1: {
+																															ctor: '::',
+																															_0: _elm_lang$html$Html$text(', '),
+																															_1: {
+																																ctor: '::',
+																																_0: _user$project$Operators$code_('elDynAttr'),
+																																_1: {
+																																	ctor: '::',
+																																	_0: _elm_lang$html$Html$text(', etc.'),
+																																	_1: {
+																																		ctor: '::',
+																																		_0: A2(
+																																			_elm_lang$html$Html$pre,
+																																			{ctor: '[]'},
+																																			{
+																																				ctor: '::',
+																																				_0: _elm_lang$html$Html$text('element :: Text -> ElementConfig er t m -> m a -> m (Element er (DomBuilderSpace m) t, a)'),
+																																				_1: {ctor: '[]'}
+																																			}),
+																																		_1: {
+																																			ctor: '::',
+																																			_0: A2(
+																																				_elm_lang$html$Html$pre,
+																																				{
+																																					ctor: '::',
+																																					_0: _elm_lang$html$Html_Attributes$style(
+																																						{
+																																							ctor: '::',
+																																							_0: {ctor: '_Tuple2', _0: 'color', _1: '#E0E0E0'},
+																																							_1: {ctor: '[]'}
+																																						}),
+																																					_1: {ctor: '[]'}
+																																				},
+																																				{
+																																					ctor: '::',
+																																					_0: _elm_lang$html$Html$text('default element :: ( MonadTransControl f\n                     , StT f a ~ a\n                     , m ~ f m\'\n                     , DomBuilderSpace m\' ~ DomBuilderSpace m\n                     , DomBuilder t m\'\n                     ) =>'),
+																																					_1: {ctor: '[]'}
+																																				}),
+																																			_1: {
+																																				ctor: '::',
+																																				_0: A2(
+																																					_elm_lang$html$Html$pre,
+																																					{ctor: '[]'},
+																																					{
+																																						ctor: '::',
+																																						_0: _elm_lang$html$Html$text('Text -> ElementConfig er t m -> m a -> m (Element er (DomBuilderSpace m) t, a)'),
+																																						_1: {ctor: '[]'}
+																																					}),
+																																				_1: {
+																																					ctor: '::',
+																																					_0: _elm_lang$html$Html$text('This function requires an '),
+																																					_1: {
+																																						ctor: '::',
+																																						_0: _user$project$Operators$code_('ElementConfig'),
+																																						_1: {
+																																							ctor: '::',
+																																							_0: _elm_lang$html$Html$text(' which includes things like namespaces and attributes, as well as a child widget of any kind. '),
+																																							_1: {
+																																								ctor: '::',
+																																								_0: _elm_lang$html$Html$text('These elements expose their events and attributes (including the ones you jusst set).'),
+																																								_1: {ctor: '[]'}
+																																							}
+																																						}
+																																					}
+																																				}
+																																			}
+																																		}
+																																	}
+																																}
+																															}
+																														}
+																													}
 																												}),
 																											_1: {ctor: '[]'}
 																										}
@@ -8923,7 +9014,7 @@ var _user$project$Main$view = function (model) {
 			}
 		});
 };
-var _user$project$Main$update = F2(
+var _user$project$Operators$update = F2(
 	function (msg, model) {
 		var _p2 = msg;
 		if (_p2.ctor === 'Increment') {
@@ -8932,14 +9023,14 @@ var _user$project$Main$update = F2(
 			return model - 1;
 		}
 	});
-var _user$project$Main$main = _elm_lang$html$Html$beginnerProgram(
-	{model: 0, view: _user$project$Main$view, update: _user$project$Main$update})();
-var _user$project$Main$Decrement = {ctor: 'Decrement'};
-var _user$project$Main$Increment = {ctor: 'Increment'};
+var _user$project$Operators$main = _elm_lang$html$Html$beginnerProgram(
+	{model: 0, view: _user$project$Operators$view, update: _user$project$Operators$update})();
+var _user$project$Operators$Decrement = {ctor: 'Decrement'};
+var _user$project$Operators$Increment = {ctor: 'Increment'};
 var Elm = {};
-Elm['Main'] = Elm['Main'] || {};
-if (typeof _user$project$Main$main !== 'undefined') {
-    _user$project$Main$main(Elm['Main'], 'Main', undefined);
+Elm['Operators'] = Elm['Operators'] || {};
+if (typeof _user$project$Operators$main !== 'undefined') {
+    _user$project$Operators$main(Elm['Operators'], 'Operators', undefined);
 }
 
 if (typeof define === "function" && define['amd'])
@@ -8971,4 +9062,4 @@ for (var publicModule in Elm)
 }
 
 }).call(this);
-</script></head><body><script type="text/javascript">Elm.Main.fullscreen()</script></body></html>
+</script></head><body><script type="text/javascript">Elm.Operators.fullscreen()</script></body></html>
