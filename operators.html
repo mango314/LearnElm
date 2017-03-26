@@ -8231,6 +8231,35 @@ var _elm_lang$html$Html_Events$Options = F2(
 	function (a, b) {
 		return {stopPropagation: a, preventDefault: b};
 	});
+var _user$project$Main$code_ = function (x) {
+	return A2(
+		_elm_lang$html$Html$code,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text(x),
+			_1: {ctor: '[]'}
+		});
+};
+var _user$project$Main$boldText = function (x) {
+	return A2(
+		_elm_lang$html$Html$span,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$style(
+				{
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'font-weight', _1: 'bold'},
+					_1: {ctor: '[]'}
+				}),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text(x),
+			_1: {ctor: '[]'}
+		});
+};
 var _user$project$Main$styleop1 = _elm_lang$html$Html_Attributes$style(
 	{
 		ctor: '::',
@@ -8241,7 +8270,197 @@ var _user$project$Main$styleop = _elm_lang$html$Html_Attributes$style(
 	{
 		ctor: '::',
 		_0: {ctor: '_Tuple2', _0: 'font-size', _1: '50px'},
-		_1: {ctor: '[]'}
+		_1: {
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 'font-weight', _1: '100'},
+			_1: {ctor: '[]'}
+		}
+	});
+var _user$project$Main$h1_ = F2(
+	function (url, x) {
+		var _p0 = url;
+		if (_p0.ctor === 'Just') {
+			return A2(
+				_elm_lang$html$Html$h1,
+				{
+					ctor: '::',
+					_0: _user$project$Main$styleop,
+					_1: {ctor: '[]'}
+				},
+				{
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$a,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$href(_p0._0),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$style(
+									{
+										ctor: '::',
+										_0: {ctor: '_Tuple2', _0: 'color', _1: '#30A3E8'},
+										_1: {
+											ctor: '::',
+											_0: {ctor: '_Tuple2', _0: 'text-decoration', _1: 'none'},
+											_1: {ctor: '[]'}
+										}
+									}),
+								_1: {ctor: '[]'}
+							}
+						},
+						{
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$code,
+								{ctor: '[]'},
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html$text(x),
+									_1: {ctor: '[]'}
+								}),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				});
+		} else {
+			return A2(
+				_elm_lang$html$Html$h1,
+				{
+					ctor: '::',
+					_0: _user$project$Main$styleop,
+					_1: {ctor: '[]'}
+				},
+				{
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$a,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$href(''),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$style(
+									{
+										ctor: '::',
+										_0: {ctor: '_Tuple2', _0: 'color', _1: '#30A3E8'},
+										_1: {
+											ctor: '::',
+											_0: {ctor: '_Tuple2', _0: 'text-decoration', _1: 'none'},
+											_1: {ctor: '[]'}
+										}
+									}),
+								_1: {ctor: '[]'}
+							}
+						},
+						{
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$code,
+								{ctor: '[]'},
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html$text(x),
+									_1: {ctor: '[]'}
+								}),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				});
+		}
+	});
+var _user$project$Main$h1_fn = F2(
+	function (url, x) {
+		var _p1 = url;
+		if (_p1.ctor === 'Just') {
+			return A2(
+				_elm_lang$html$Html$h1,
+				{
+					ctor: '::',
+					_0: _user$project$Main$styleop,
+					_1: {ctor: '[]'}
+				},
+				{
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$a,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$href(_p1._0),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$style(
+									{
+										ctor: '::',
+										_0: {ctor: '_Tuple2', _0: 'color', _1: '#6DF22B'},
+										_1: {
+											ctor: '::',
+											_0: {ctor: '_Tuple2', _0: 'text-decoration', _1: 'none'},
+											_1: {ctor: '[]'}
+										}
+									}),
+								_1: {ctor: '[]'}
+							}
+						},
+						{
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$code,
+								{ctor: '[]'},
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html$text(x),
+									_1: {ctor: '[]'}
+								}),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				});
+		} else {
+			return A2(
+				_elm_lang$html$Html$h1,
+				{
+					ctor: '::',
+					_0: _user$project$Main$styleop,
+					_1: {ctor: '[]'}
+				},
+				{
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$a,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$href(''),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$style(
+									{
+										ctor: '::',
+										_0: {ctor: '_Tuple2', _0: 'color', _1: '#6DF22B'},
+										_1: {
+											ctor: '::',
+											_0: {ctor: '_Tuple2', _0: 'text-decoration', _1: 'none'},
+											_1: {ctor: '[]'}
+										}
+									}),
+								_1: {ctor: '[]'}
+							}
+						},
+						{
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$code,
+								{ctor: '[]'},
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html$text(x),
+									_1: {ctor: '[]'}
+								}),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				});
+		}
 	});
 var _user$project$Main$style1 = _elm_lang$html$Html_Attributes$style(
 	{
@@ -8295,27 +8514,13 @@ var _user$project$Main$view = function (model) {
 								_0: _elm_lang$html$Html$text('We could imagine programming websites without ever mentioning the '),
 								_1: {
 									ctor: '::',
-									_0: A2(
-										_elm_lang$html$Html$code,
-										{ctor: '[]'},
-										{
-											ctor: '::',
-											_0: _elm_lang$html$Html$text('<p>'),
-											_1: {ctor: '[]'}
-										}),
+									_0: _user$project$Main$code_('<p>'),
 									_1: {
 										ctor: '::',
 										_0: _elm_lang$html$Html$text(' and '),
 										_1: {
 											ctor: '::',
-											_0: A2(
-												_elm_lang$html$Html$code,
-												{ctor: '[]'},
-												{
-													ctor: '::',
-													_0: _elm_lang$html$Html$text('<h1>'),
-													_1: {ctor: '[]'}
-												}),
+											_0: _user$project$Main$code_('<h1>'),
 											_1: {
 												ctor: '::',
 												_0: _elm_lang$html$Html$text(' symbols.  We can roll our own.'),
@@ -8337,23 +8542,7 @@ var _user$project$Main$view = function (model) {
 							_0: _elm_lang$html$Html$text('Haskell and Reflex-Dom pose a '),
 							_1: {
 								ctor: '::',
-								_0: A2(
-									_elm_lang$html$Html$span,
-									{
-										ctor: '::',
-										_0: _elm_lang$html$Html_Attributes$style(
-											{
-												ctor: '::',
-												_0: {ctor: '_Tuple2', _0: 'font-weight', _1: 'bold'},
-												_1: {ctor: '[]'}
-											}),
-										_1: {ctor: '[]'}
-									},
-									{
-										ctor: '::',
-										_0: _elm_lang$html$Html$text('storytelling challenge'),
-										_1: {ctor: '[]'}
-									}),
+								_0: _user$project$Main$boldText('storytelling challenge'),
 								_1: {
 									ctor: '::',
 									_0: _elm_lang$html$Html$text(' as the coder is being asked to put together a peculiar formulation of HTML with exotic types '),
@@ -8426,44 +8615,9 @@ var _user$project$Main$view = function (model) {
 							_1: {
 								ctor: '::',
 								_0: A2(
-									_elm_lang$html$Html$h1,
-									{
-										ctor: '::',
-										_0: _user$project$Main$styleop,
-										_1: {ctor: '[]'}
-									},
-									{
-										ctor: '::',
-										_0: A2(
-											_elm_lang$html$Html$a,
-											{
-												ctor: '::',
-												_0: _elm_lang$html$Html_Attributes$href('https://hackage.haskell.org/package/base-4.9.1.0/docs/Data-Function.html'),
-												_1: {
-													ctor: '::',
-													_0: _elm_lang$html$Html_Attributes$style(
-														{
-															ctor: '::',
-															_0: {ctor: '_Tuple2', _0: 'color', _1: '#30A3E8'},
-															_1: {ctor: '[]'}
-														}),
-													_1: {ctor: '[]'}
-												}
-											},
-											{
-												ctor: '::',
-												_0: A2(
-													_elm_lang$html$Html$code,
-													{ctor: '[]'},
-													{
-														ctor: '::',
-														_0: _elm_lang$html$Html$text('&'),
-														_1: {ctor: '[]'}
-													}),
-												_1: {ctor: '[]'}
-											}),
-										_1: {ctor: '[]'}
-									}),
+									_user$project$Main$h1_,
+									_elm_lang$core$Maybe$Just('https://hackage.haskell.org/package/base-4.9.1.0/docs/Data-Function.html'),
+									'&'),
 								_1: {
 									ctor: '::',
 									_0: A2(
@@ -8539,25 +8693,7 @@ var _user$project$Main$view = function (model) {
 										}),
 									_1: {
 										ctor: '::',
-										_0: A2(
-											_elm_lang$html$Html$h1,
-											{
-												ctor: '::',
-												_0: _user$project$Main$styleop,
-												_1: {ctor: '[]'}
-											},
-											{
-												ctor: '::',
-												_0: A2(
-													_elm_lang$html$Html$code,
-													{ctor: '[]'},
-													{
-														ctor: '::',
-														_0: _elm_lang$html$Html$text('.~'),
-														_1: {ctor: '[]'}
-													}),
-												_1: {ctor: '[]'}
-											}),
+										_0: A2(_user$project$Main$h1_, _elm_lang$core$Maybe$Nothing, '.~'),
 										_1: {
 											ctor: '::',
 											_0: A2(
@@ -8570,25 +8706,7 @@ var _user$project$Main$view = function (model) {
 												}),
 											_1: {
 												ctor: '::',
-												_0: A2(
-													_elm_lang$html$Html$h1,
-													{
-														ctor: '::',
-														_0: _user$project$Main$styleop,
-														_1: {ctor: '[]'}
-													},
-													{
-														ctor: '::',
-														_0: A2(
-															_elm_lang$html$Html$code,
-															{ctor: '[]'},
-															{
-																ctor: '::',
-																_0: _elm_lang$html$Html$text('=:'),
-																_1: {ctor: '[]'}
-															}),
-														_1: {ctor: '[]'}
-													}),
+												_0: A2(_user$project$Main$h1_, _elm_lang$core$Maybe$Nothing, '=:'),
 												_1: {
 													ctor: '::',
 													_0: A2(
@@ -8635,25 +8753,7 @@ var _user$project$Main$view = function (model) {
 														}),
 													_1: {
 														ctor: '::',
-														_0: A2(
-															_elm_lang$html$Html$h1,
-															{
-																ctor: '::',
-																_0: _user$project$Main$styleop,
-																_1: {ctor: '[]'}
-															},
-															{
-																ctor: '::',
-																_0: A2(
-																	_elm_lang$html$Html$code,
-																	{ctor: '[]'},
-																	{
-																		ctor: '::',
-																		_0: _elm_lang$html$Html$text('=>'),
-																		_1: {ctor: '[]'}
-																	}),
-																_1: {ctor: '[]'}
-															}),
+														_0: A2(_user$project$Main$h1_, _elm_lang$core$Maybe$Nothing, '=>'),
 														_1: {
 															ctor: '::',
 															_0: A2(
@@ -8664,23 +8764,7 @@ var _user$project$Main$view = function (model) {
 																	_0: _elm_lang$html$Html$text('This is called a '),
 																	_1: {
 																		ctor: '::',
-																		_0: A2(
-																			_elm_lang$html$Html$span,
-																			{
-																				ctor: '::',
-																				_0: _elm_lang$html$Html_Attributes$style(
-																					{
-																						ctor: '::',
-																						_0: {ctor: '_Tuple2', _0: 'font-weight', _1: 'bold'},
-																						_1: {ctor: '[]'}
-																					}),
-																				_1: {ctor: '[]'}
-																			},
-																			{
-																				ctor: '::',
-																				_0: _elm_lang$html$Html$text('type constraint'),
-																				_1: {ctor: '[]'}
-																			}),
+																		_0: _user$project$Main$boldText('type constraint'),
 																		_1: {
 																			ctor: '::',
 																			_0: _elm_lang$html$Html$text(' and the type constraint is that '),
@@ -8720,25 +8804,7 @@ var _user$project$Main$view = function (model) {
 																}),
 															_1: {
 																ctor: '::',
-																_0: A2(
-																	_elm_lang$html$Html$h1,
-																	{
-																		ctor: '::',
-																		_0: _user$project$Main$styleop,
-																		_1: {ctor: '[]'}
-																	},
-																	{
-																		ctor: '::',
-																		_0: A2(
-																			_elm_lang$html$Html$code,
-																			{ctor: '[]'},
-																			{
-																				ctor: '::',
-																				_0: _elm_lang$html$Html$text('()'),
-																				_1: {ctor: '[]'}
-																			}),
-																		_1: {ctor: '[]'}
-																	}),
+																_0: A2(_user$project$Main$h1_, _elm_lang$core$Maybe$Nothing, '()'),
 																_1: {
 																	ctor: '::',
 																	_0: A2(
@@ -8751,25 +8817,7 @@ var _user$project$Main$view = function (model) {
 																		}),
 																	_1: {
 																		ctor: '::',
-																		_0: A2(
-																			_elm_lang$html$Html$h1,
-																			{
-																				ctor: '::',
-																				_0: _user$project$Main$styleop1,
-																				_1: {ctor: '[]'}
-																			},
-																			{
-																				ctor: '::',
-																				_0: A2(
-																					_elm_lang$html$Html$code,
-																					{ctor: '[]'},
-																					{
-																						ctor: '::',
-																						_0: _elm_lang$html$Html$text('blank'),
-																						_1: {ctor: '[]'}
-																					}),
-																				_1: {ctor: '[]'}
-																			}),
+																		_0: A2(_user$project$Main$h1_fn, _elm_lang$core$Maybe$Nothing, 'blank'),
 																		_1: {
 																			ctor: '::',
 																			_0: A2(
@@ -8777,30 +8825,28 @@ var _user$project$Main$view = function (model) {
 																				{ctor: '[]'},
 																				{
 																					ctor: '::',
-																					_0: _elm_lang$html$Html$text('this connective has to do with lenses'),
-																					_1: {ctor: '[]'}
+																					_0: _elm_lang$html$Html$text('There really isn\'t much to blank.  It is has type '),
+																					_1: {
+																						ctor: '::',
+																						_0: _user$project$Main$code_('blank :: Monad m => m ()'),
+																						_1: {
+																							ctor: '::',
+																							_0: _elm_lang$html$Html$text('This is a way of saying \"Nothing\" in the category of '),
+																							_1: {
+																								ctor: '::',
+																								_0: _user$project$Main$boldText('Widgets'),
+																								_1: {
+																									ctor: '::',
+																									_0: _elm_lang$html$Html$text('.'),
+																									_1: {ctor: '[]'}
+																								}
+																							}
+																						}
+																					}
 																				}),
 																			_1: {
 																				ctor: '::',
-																				_0: A2(
-																					_elm_lang$html$Html$h1,
-																					{
-																						ctor: '::',
-																						_0: _user$project$Main$styleop1,
-																						_1: {ctor: '[]'}
-																					},
-																					{
-																						ctor: '::',
-																						_0: A2(
-																							_elm_lang$html$Html$code,
-																							{ctor: '[]'},
-																							{
-																								ctor: '::',
-																								_0: _elm_lang$html$Html$text('def'),
-																								_1: {ctor: '[]'}
-																							}),
-																						_1: {ctor: '[]'}
-																					}),
+																				_0: A2(_user$project$Main$h1_fn, _elm_lang$core$Maybe$Nothing, 'def'),
 																				_1: {
 																					ctor: '::',
 																					_0: A2(
@@ -8813,25 +8859,7 @@ var _user$project$Main$view = function (model) {
 																						}),
 																					_1: {
 																						ctor: '::',
-																						_0: A2(
-																							_elm_lang$html$Html$h1,
-																							{
-																								ctor: '::',
-																								_0: _user$project$Main$styleop1,
-																								_1: {ctor: '[]'}
-																							},
-																							{
-																								ctor: '::',
-																								_0: A2(
-																									_elm_lang$html$Html$code,
-																									{ctor: '[]'},
-																									{
-																										ctor: '::',
-																										_0: _elm_lang$html$Html$text('namespace'),
-																										_1: {ctor: '[]'}
-																									}),
-																								_1: {ctor: '[]'}
-																							}),
+																						_0: A2(_user$project$Main$h1_fn, _elm_lang$core$Maybe$Nothing, 'namespace'),
 																						_1: {
 																							ctor: '::',
 																							_0: A2(
@@ -8844,25 +8872,7 @@ var _user$project$Main$view = function (model) {
 																								}),
 																							_1: {
 																								ctor: '::',
-																								_0: A2(
-																									_elm_lang$html$Html$h1,
-																									{
-																										ctor: '::',
-																										_0: _user$project$Main$styleop1,
-																										_1: {ctor: '[]'}
-																									},
-																									{
-																										ctor: '::',
-																										_0: A2(
-																											_elm_lang$html$Html$code,
-																											{ctor: '[]'},
-																											{
-																												ctor: '::',
-																												_0: _elm_lang$html$Html$text('def & namespace'),
-																												_1: {ctor: '[]'}
-																											}),
-																										_1: {ctor: '[]'}
-																									}),
+																								_0: A2(_user$project$Main$h1_fn, _elm_lang$core$Maybe$Nothing, 'namespace .~ Just \"xyz\" '),
 																								_1: {
 																									ctor: '::',
 																									_0: A2(
@@ -8875,25 +8885,7 @@ var _user$project$Main$view = function (model) {
 																										}),
 																									_1: {
 																										ctor: '::',
-																										_0: A2(
-																											_elm_lang$html$Html$h1,
-																											{
-																												ctor: '::',
-																												_0: _user$project$Main$styleop1,
-																												_1: {ctor: '[]'}
-																											},
-																											{
-																												ctor: '::',
-																												_0: A2(
-																													_elm_lang$html$Html$code,
-																													{ctor: '[]'},
-																													{
-																														ctor: '::',
-																														_0: _elm_lang$html$Html$text('element'),
-																														_1: {ctor: '[]'}
-																													}),
-																												_1: {ctor: '[]'}
-																											}),
+																										_0: A2(_user$project$Main$h1_fn, _elm_lang$core$Maybe$Nothing, 'element'),
 																										_1: {
 																											ctor: '::',
 																											_0: A2(
@@ -8933,8 +8925,8 @@ var _user$project$Main$view = function (model) {
 };
 var _user$project$Main$update = F2(
 	function (msg, model) {
-		var _p0 = msg;
-		if (_p0.ctor === 'Increment') {
+		var _p2 = msg;
+		if (_p2.ctor === 'Increment') {
 			return model + 1;
 		} else {
 			return model - 1;
