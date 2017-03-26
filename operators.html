@@ -8263,13 +8263,13 @@ var _user$project$Operators$boldText = function (x) {
 var _user$project$Operators$styleop1 = _elm_lang$html$Html_Attributes$style(
 	{
 		ctor: '::',
-		_0: {ctor: '_Tuple2', _0: 'font-size', _1: '30px'},
+		_0: {ctor: '_Tuple2', _0: 'font-size', _1: '20px'},
 		_1: {ctor: '[]'}
 	});
 var _user$project$Operators$styleop = _elm_lang$html$Html_Attributes$style(
 	{
 		ctor: '::',
-		_0: {ctor: '_Tuple2', _0: 'font-size', _1: '40px'},
+		_0: {ctor: '_Tuple2', _0: 'font-size', _1: '30px'},
 		_1: {
 			ctor: '::',
 			_0: {ctor: '_Tuple2', _0: 'font-weight', _1: '100'},
@@ -8964,17 +8964,28 @@ var _user$project$Operators$view = function (model) {
 																																					}),
 																																				_1: {
 																																					ctor: '::',
-																																					_0: _elm_lang$html$Html$text('This function requires an '),
+																																					_0: A2(
+																																						_elm_lang$html$Html$pre,
+																																						{ctor: '[]'},
+																																						{
+																																							ctor: '::',
+																																							_0: _elm_lang$html$Html$text('element t cfg child = liftWith $ \run -> element t (liftElementConfig cfg) $ run child'),
+																																							_1: {ctor: '[]'}
+																																						}),
 																																					_1: {
 																																						ctor: '::',
-																																						_0: _user$project$Operators$code_('ElementConfig'),
+																																						_0: _elm_lang$html$Html$text('This function requires an '),
 																																						_1: {
 																																							ctor: '::',
-																																							_0: _elm_lang$html$Html$text(' which includes things like namespaces and attributes, as well as a child widget of any kind. '),
+																																							_0: _user$project$Operators$code_('ElementConfig'),
 																																							_1: {
 																																								ctor: '::',
-																																								_0: _elm_lang$html$Html$text('These elements expose their events and attributes (including the ones you jusst set).'),
-																																								_1: {ctor: '[]'}
+																																								_0: _elm_lang$html$Html$text(' which includes things like namespaces and attributes, as well as a child widget of any kind. '),
+																																								_1: {
+																																									ctor: '::',
+																																									_0: _elm_lang$html$Html$text('These elements expose their events and attributes (including the ones you just set).'),
+																																									_1: {ctor: '[]'}
+																																								}
 																																							}
 																																						}
 																																					}
@@ -8987,7 +8998,57 @@ var _user$project$Operators$view = function (model) {
 																														}
 																													}
 																												}),
-																											_1: {ctor: '[]'}
+																											_1: {
+																												ctor: '::',
+																												_0: A2(
+																													_elm_lang$html$Html$p,
+																													{ctor: '[]'},
+																													{
+																														ctor: '::',
+																														_0: _elm_lang$html$Html$text('An alternative way of writing the '),
+																														_1: {
+																															ctor: '::',
+																															_0: _user$project$Operators$code_('svg'),
+																															_1: {
+																																ctor: '::',
+																																_0: _elm_lang$html$Html$text(' function, could be to write in terms of '),
+																																_1: {
+																																	ctor: '::',
+																																	_0: _user$project$Operators$code_('elAttrDynNS\''),
+																																	_1: {
+																																		ctor: '::',
+																																		_0: _elm_lang$html$Html$text(' which is written in terms of '),
+																																		_1: {
+																																			ctor: '::',
+																																			_0: _user$project$Operators$code_('element'),
+																																			_1: {
+																																				ctor: '::',
+																																				_0: _elm_lang$html$Html$text('but without the scary lenses.  I think my way is more flexible. '),
+																																				_1: {
+																																					ctor: '::',
+																																					_0: A2(
+																																						_elm_lang$html$Html$pre,
+																																						{ctor: '[]'},
+																																						{
+																																							ctor: '::',
+																																							_0: _elm_lang$html$Html$text('svg\' :: MonadWidget t m => m ()\nsvg\' = do\n  elDynAttrNS\' (Just \"http://www.w3.org/2000/svg\") \"svg\" def blank\n  return () '),
+																																							_1: {ctor: '[]'}
+																																						}),
+																																					_1: {
+																																						ctor: '::',
+																																						_0: _elm_lang$html$Html$text('this was no easier than using the Haskell lenses.'),
+																																						_1: {ctor: '[]'}
+																																					}
+																																				}
+																																			}
+																																		}
+																																	}
+																																}
+																															}
+																														}
+																													}),
+																												_1: {ctor: '[]'}
+																											}
 																										}
 																									}
 																								}
