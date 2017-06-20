@@ -2,8 +2,10 @@
 import Html exposing (Html, button, div, text, p)
 import Html.Events exposing (onClick)
 import Html.Attributes exposing (style)
-import Svg exposing (Svg, svg, polygon, polyline, line, g, rect )
-import Svg.Attributes exposing (points, stroke, strokeWidth, fill, x1, x2, y1, y2, width, height, x, y)
+import Svg exposing (Svg, svg, polygon, polyline, line, g, rect, circle )
+import Svg.Attributes exposing (points, stroke, strokeWidth, fill, x1, x2, y1, y2, width, height, cx, cy, r, opacity)
+import Svg.Events exposing (onMouseOver, onMouseOut)
+import Dict exposing (..)
 
 -- idea:
 --
@@ -12,27 +14,35 @@ import Svg.Attributes exposing (points, stroke, strokeWidth, fill, x1, x2, y1, y
 --
 
 main =
-  Html.beginnerProgram { model = 0, view = view, update = update }
+  Html.beginnerProgram
+    { model =
+      {   color = Dict.fromList
+      <|  List.map (\x -> (x,"0"))
+      <| product (List.range 1 4) (List.range 1 4)
+      }
+    , view = view
+    , update = update
+    }
 
-type Msg = Increment | Decrement
+type Msg = Hover (Int, Int) | Leave (Int, Int)
 
 update msg model =
   case msg of
-    Increment ->
-      model + 1
-
-    Decrement ->
-      model - 1
+    Hover x -> { model | color = Dict.update x (\ y -> Just "1" ) model.color }
+    Leave x -> { model | color = Dict.update x (\ y -> Just "0" ) model.color }
 
 tile x = polygon
   [ points
   <| String.join " "
-  <| List.map ((\(a,b) -> toString a ++ "," ++ toString b) <<  (\(a,b) -> (a+20, b+20)) << (\(a,b) -> (92*a , 92*b) ) ) x
+  <| List.map ((\ (a,b) -> toString a ++ "," ++ toString b) <<  (\(a,b) -> (a+20, b+20)) << (\(a,b) -> (92*a , 92*b) ) ) x
   , stroke "#707070"
   , fill "none"
   , strokeWidth "3"
   ]
   []
+
+product x y = List.concat <| List.map (\b -> List.map (\a -> (a,b)) <| x ) <| y
+
 
 view model =
   div []
@@ -69,6 +79,24 @@ view model =
           , tile [(1,1), (2, 1),(2,2),(2,3),(1,3),(1,2),(1,1)]
           , tile [(0,3), (1, 3),(2,3),(2,4),(1,4),(0,4),(0,3)]
           , tile [(1,4), (2, 4),(3,4),(3,5),(2,5),(1,5),(1,4)]
+          , g []
+            <| List.map
+              ( (\(a,b) -> circle
+                [ cx (toString a)
+                , cy (toString b)
+                , r "5"
+                , fill "#404040"
+                , opacity <|
+                    case get (a,b) model.color of
+                      Just x -> x
+                      Nothing -> "0"
+                , onMouseOver <| Hover (a,b)
+                , onMouseOut <| Leave (a,b)
+                ] [] )
+              << (\(a,b) -> (a+20, b+20) )
+              << (\(a,b) -> (a*92, b*92) )
+              )
+            <| product (List.range 1 4) (List.range 1 4)
           ]
       ]
     ]
