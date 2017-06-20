@@ -2,8 +2,14 @@
 import Html exposing (Html, button, div, text, p)
 import Html.Events exposing (onClick)
 import Html.Attributes exposing (style)
-import Svg exposing (Svg, svg, polygon, polyline, line )
-import Svg.Attributes exposing (points, stroke, strokeWidth, fill, x1, x2, y1, y2)
+import Svg exposing (Svg, svg, polygon, polyline, line, g, rect )
+import Svg.Attributes exposing (points, stroke, strokeWidth, fill, x1, x2, y1, y2, width, height, x, y)
+
+-- idea:
+--
+-- implement domino tiling as a data structure over a dictionary.
+-- if every square can be referred to by a pair of integers maybe
+--
 
 main =
   Html.beginnerProgram { model = 0, view = view, update = update }
@@ -18,39 +24,51 @@ update msg model =
     Decrement ->
       model - 1
 
--- this could be made even more functional, but notice the use of
---  (>>)
---  <function> : (a -> b) -> (b -> c) -> a -> c
---  (<<)
---  <function> : (b -> c) -> (a -> b) -> a -> c
-
-center = ((\a -> a + 150), (\b -> b + 150))
-(f,g ) = ((\a -> a + 10), (\b -> b + 10))
-
-aztecDiamondBoundaryData dx dy =
-  let
-    x = List.map ( (Tuple.first  center)  << (\t -> dx*t) ) [0,1,1,2,2,3,3,4,4,5,5]
-    y = List.map ( (Tuple.second center)  << (\t -> dy*t) ) [5,5,4,4,3,3,2,2,1,1,0]
-    z = List.map2 (,) x y
-  in
-    String.join ", " <<  List.map (\ (a,b) -> toString a ++ ", " ++ toString b ) <| z
-
-aztecDiamondLines dx dy =
-  let
-    a = List.map (\t -> line [ x1 ( toString <| f 0*dx ), x2 ( toString <| f (5-t)*dx ), y1 ( toString  <| g  t*dy ), y2 ( toString <| g    t*dy ) , stroke "black", fill "none"] [] ) [0,1,2,3,4,5]
-    b = List.map (\t -> line [ x1 ( toString <| f 0*dx ), x2 ( toString <| f (5-t)*dx ), y1 ( toString <| g (-1*t)*dy ), y2 ( toString <| g (-1*t)*dy ) , stroke "black", fill "none"] [] ) [0,1,2,3,4,5]
-    c = List.map (\t -> line [ x1 ( toString  <| f  t*dx ), x2 ( toString  <| f  t*dx ), y1 ( toString <| g 0*dy ), y2 ( toString <| g (5-t)*dy ) , stroke "black", fill "none"] [] ) [0,1,2,3,4,5]
-    d = List.map (\t -> line [ x1 ( toString <| f (-1*t)*dx ), x2 ( toString <| f (-1*t)*dx ), y1 ( toString <| g 0*dy ), y2 ( toString <| g (5-t)*dy ), stroke "black" , fill "none"] [] ) [0,1,2,3,4,5]
-  in
-    a ++ b ++ c ++ d
+tile x = polygon
+  [ points
+  <| String.join " "
+  <| List.map ((\(a,b) -> toString a ++ "," ++ toString b) <<  (\(a,b) -> (a+20, b+20)) << (\(a,b) -> (92*a , 92*b) ) ) x
+  , stroke "#707070"
+  , fill "none"
+  , strokeWidth "3"
+  ]
+  []
 
 view model =
-  div [ style [("margin-left", "5px") ]]
-    [ p [ style [("font-family", "Helvetica"), ("width", "400")] ] [ text "Click on a vertex to switch between horizontal and vertical squares." ]
-    , svg [ style [("width", "300"), ("height", "300"), ("background-color", "#F0F0F0"), ("margin", "1px") ] ]
-    <|  [ polyline [ points <| aztecDiamondBoundaryData  15  15 , stroke "black", strokeWidth "2", fill "none" ] []
-        , polyline [ points <| aztecDiamondBoundaryData -15  15 , stroke "black", strokeWidth "2", fill "none" ] []
-        , polyline [ points <| aztecDiamondBoundaryData  15 -15 , stroke "black", strokeWidth "2", fill "none" ] []
-        , polyline [ points <| aztecDiamondBoundaryData -15 -15 , stroke "black", strokeWidth "2", fill "none" ] []
-        ] ++ (aztecDiamondLines 15 15)
+  div []
+    [ div []
+      [ svg [ style [ ( "width", "500"), ("height", "500"), ("background-color", "#F0F0F0")] ]
+          [ g []
+                    <| List.map (\a -> line
+                      [ x1 (toString a)
+                      , x2 (toString a)
+                      , y1 (toString 20)
+                      , y2 (toString 480)
+                      , strokeWidth "1"
+                      , stroke "#3CE875"  ] [] )
+                    <| List.map (\x -> x)
+                    <| List.map (\x -> 20 + 92*x ) [0,1,2,3,4,5]
+          , g []
+                    <| List.map (\a -> line
+                      [ x1 (toString 20)
+                      , x2 (toString 480)
+                      , y1 (toString a)
+                      , y2 (toString a)
+                      , strokeWidth "1"
+                      , stroke "#3CE875"  ] [] )
+                    <| List.map (\x -> x)
+                    <| List.map (\x -> 20 + 92*x  ) [0,1,2,3,4,5]
+          , tile [(0,0), (1, 0),(2,0),(2,1),(1,1),(0,1),(0,0)]
+          , tile [(2,0), (3, 0),(3,1),(3,2),(2,2),(2,1),(2,0)]
+          , tile [(3,0), (4, 0),(5,0),(5,1),(4,1),(3,1),(3,0)]
+          , tile [(3,1), (4, 1),(4,2),(4,3),(3,3),(3,2),(3,1)]
+          , tile [(4,1), (5, 1),(5,2),(5,3),(4,3),(4,2),(4,1)]
+          , tile [(3,3), (4, 3),(5,3),(5,4),(4,4),(3,4),(3,3)]
+          , tile [(3,4), (4, 4),(5,4),(5,5),(4,5),(3,5),(3,4)]
+          , tile [(0,1), (1, 1),(1,2),(1,3),(0,3),(0,2),(0,1)]
+          , tile [(1,1), (2, 1),(2,2),(2,3),(1,3),(1,2),(1,1)]
+          , tile [(0,3), (1, 3),(2,3),(2,4),(1,4),(0,4),(0,3)]
+          , tile [(1,4), (2, 4),(3,4),(3,5),(2,5),(1,5),(1,4)]
+          ]
+      ]
     ]
