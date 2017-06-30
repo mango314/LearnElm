@@ -19,18 +19,29 @@ main =
       {   color = Dict.fromList
       <|  List.map (\x -> (x,"0"))
       <| product (List.range 1 4) (List.range 1 4)
+      ,   matching = Dict.empty
       }
     , view = view
     , update = update
     }
 
-type Msg = Hover (Int, Int) | Leave (Int, Int)
+type Msg = Hover (Int, Int) | Leave (Int, Int) | Click (Int, Int)
 
 update msg model =
   case msg of
     Hover x -> { model | color = Dict.update x (\ y -> Just "1" ) model.color }
     Leave x -> { model | color = Dict.update x (\ y -> Just "0" ) model.color }
+    Click x -> model
 
+
+domino : (Int, Int) -> Int -> Svg Msg
+domino (a,b) x =
+  case x  of
+    0   -> tile <| (\(x,y) -> [(x,y), (x+1,y),(x+2,y),(x+2,y+1),(x+1,y+1),(x,y+1),(x,y)] ) (a,b)
+    1   -> tile <| (\(x,y) -> [(x,y), (x+1,y),(x+1,y+1),(x+1,y+2),(x,y+2),(x,y+1),(x,y)] ) (a,b)
+    _   -> tile []
+
+tile : List (Int, Int) -> Svg Msg
 tile x = polygon
   [ points
   <| String.join " "
@@ -40,6 +51,9 @@ tile x = polygon
   , strokeWidth "3"
   ]
   []
+
+--domino :: (Int, Int) -> (Int, Int) -> Maybe
+--domino (a,b) (c,d) = case
 
 product x y = List.concat <| List.map (\b -> List.map (\a -> (a,b)) <| x ) <| y
 
@@ -68,17 +82,17 @@ view model =
                       , stroke "#3CE875"  ] [] )
                     <| List.map (\x -> x)
                     <| List.map (\x -> 20 + 92*x  ) [0,1,2,3,4,5]
-          , tile [(0,0), (1, 0),(2,0),(2,1),(1,1),(0,1),(0,0)]
-          , tile [(2,0), (3, 0),(3,1),(3,2),(2,2),(2,1),(2,0)]
-          , tile [(3,0), (4, 0),(5,0),(5,1),(4,1),(3,1),(3,0)]
-          , tile [(3,1), (4, 1),(4,2),(4,3),(3,3),(3,2),(3,1)]
-          , tile [(4,1), (5, 1),(5,2),(5,3),(4,3),(4,2),(4,1)]
-          , tile [(3,3), (4, 3),(5,3),(5,4),(4,4),(3,4),(3,3)]
-          , tile [(3,4), (4, 4),(5,4),(5,5),(4,5),(3,5),(3,4)]
-          , tile [(0,1), (1, 1),(1,2),(1,3),(0,3),(0,2),(0,1)]
-          , tile [(1,1), (2, 1),(2,2),(2,3),(1,3),(1,2),(1,1)]
-          , tile [(0,3), (1, 3),(2,3),(2,4),(1,4),(0,4),(0,3)]
-          , tile [(1,4), (2, 4),(3,4),(3,5),(2,5),(1,5),(1,4)]
+          , domino (0,0) 0
+          , domino (2,0) 1
+          , domino (3,0) 0
+          , domino (3,1) 1
+          , domino (4,1) 1
+          , domino (3,3) 0
+          , domino (3,4) 0
+          , domino (0,1) 1
+          , domino (1,1) 1
+          , domino (0,3) 0
+          , domino (1,4) 0
           , g []
             <| List.map
               ( (\(a,b) -> circle
@@ -90,8 +104,9 @@ view model =
                     case get (a,b) model.color of
                       Just x -> x
                       Nothing -> "0"
-                , onMouseOver <| Hover (a,b)
-                , onMouseOut <| Leave (a,b)
+                , onMouseOver   <| Hover (a,b)
+                , onMouseOut    <| Leave (a,b)
+  --              , onDoubleClick <| Click (a,b)
                 ] [] )
               << (\(a,b) -> (a+20, b+20) )
               << (\(a,b) -> (a*92, b*92) )
