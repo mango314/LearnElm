@@ -20,6 +20,7 @@ We are in the process of developing Elm-D3 interoperability please this one test
   * another game literally a race against [time](http://monsieurcactus.github.io/LearnElm/game-01.html).
   * ongoing discussion on [operators](http://monsieurcactus.github.io/LearnElm/operators.html) and [buttons](http://monsieurcactus.github.io/LearnElm/button.html) in Haskell Reflex-Dom (written in Elm, and experiment with **syntax highlighting**
   * my attempt at [domino](http://monsieurcactus.github.io/LearnElm/domino.html) game
+  * a [world clock](http://monsieurcactus.github.io/LearnElm/timetable.html) (needs work)
 
 From a working **knight's tour** game with visualization of the past ([game](http://monsieurcactus.github.io/LearnElm/point-and-click.html))
 
