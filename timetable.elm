@@ -41,7 +41,7 @@ panelStyle model t = style
 
 panelStyle2 : Int -> Int -> Attribute Msg
 panelStyle2 model t = style
-  [ ("width", "50px")
+  [ ("width", "60px")
   , ("background-color", "#B0B0B0")
   , ("margin", "5px")
   , ("padding-right", "5px")
@@ -68,7 +68,16 @@ row : Model  -> (String , Int) -> Html Msg
 row  model (a,b) = text a
 
 row1 : Model -> (String , Int) -> Html Msg
-row1 model (a,b) = text <| ( toString <| ( b + model.hour ) % 24 ) ++ ":" ++ ( toString model.minute ) ++ ":" ++ ( toString model.second )
+row1 model (a,b) =
+  let
+    mnt = case model.minute < 10 of
+      True  -> "0" ++ ( toString model.minute )
+      False ->  toString model.minute
+    sec = case model.second < 10 of
+      True  -> "0" ++ ( toString model.second )
+      False ->  toString model.second
+  in
+    text <| ( toString <| ( b + model.hour ) % 24 ) ++ ":" ++ mnt ++ ":" ++ sec
 
 view: Model -> Html Msg
 view model =
