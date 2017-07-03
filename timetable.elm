@@ -41,12 +41,15 @@ panelStyle model t = style
 
 panelStyle2 : Int -> Int -> Attribute Msg
 panelStyle2 model t = style
-  [ ("width", "60px")
+  [ ("width", "80px")
   , ("background-color", "#B0B0B0")
   , ("margin", "5px")
+  , ("margin-right", "5px")
   , ("padding-right", "5px")
+  , ("padding", "1px")
   , ("overflow", ("hidden"))
   , ("text-align", "right")
+  , ("font-family", "Arial")
   , case ( model  % 100 ) == t  of
       True  -> ("visibility", "hidden" )
       False -> ("visibility", "visible")
