@@ -3,19 +3,19 @@ import Html.Events exposing (onClick)
 import Svg exposing (Svg, svg)
 
 import Http
-import Json.Decode as Decode
+import Json.Decode as Decode exposing (Decoder, at, list, maybe, map, field, float)
 import Html.Attributes exposing (style)
 
 main =
   Html.program { init = init, view = view, update = update , subscriptions = subscriptions }
 
-type Msg = GetMap ( Result Http.Error   ( List (Maybe (List ( List ( List Float ))) ) )) | AskMap
+type Msg = GetMap ( Result Http.Error   ( List ( Maybe Polygon ) ) ) | AskMap
 
 -- INIT
 
-type alias Model =  { note:  String, polygons: List ( Maybe (List ( List ( List Float ))))}
+type alias Model   =   { note:  String, polygons: List ( Maybe Polygon ) }
 
-type Polygon = List ( List ( List Float ))
+type alias Polygon = { coordinates: List ( List ( List Float )) }
 
 init : ( Model, Cmd Msg )
 init = ( Model "PR info" ( [] ) , Cmd.none )
@@ -49,10 +49,16 @@ view model =
     [ div [ divStyle ] [ text model.note ]
     , div [ divStyle ] [ button [ onClick AskMap ] [ text "get Map" ] ]
     , div [ svgStyle ] [ svg [] []  ]
-    , div [] <| List.map (\x ->
-        case x of
-          Just y -> div [] [ text "abc"]
-          Nothing -> div [] [ text "nothing"]  ) model.polygons
+    , div []
+        <| List.map
+            (\x ->
+              case x of
+                Just y -> div []
+                  [ text "abc"
+                  , ( text << toString << List.sum << ( List.map (\t -> 1) ) ) y.coordinates
+                  ]
+                Nothing -> div [] [ text "nothing"]
+            ) model.polygons
     ]
 
 -- HTTP
@@ -69,11 +75,20 @@ getPRData =
 -- discussion on Elm decoders rather limited
 -- Fajardo is Multipolygon
 
--- no monads!! 
-decodePR : Decode.Decoder  ( List (Maybe ( List ( List ( List Float )) )))
-decodePR = Decode.at ["municipios"]
-  <| Decode.list
-  <| Decode.maybe
-  <| Decode.at ["geometry", "coordinates"]
-  <| Decode.list <| Decode.list
-  <| Decode.list Decode.float
+-- no monads!!
+decodePR : Decoder  ( List ( Maybe Polygon ))
+decodePR = ( ( at ["municipios"] ) << list << maybe ) ( polygonDecoder )
+
+polygonDecoder : Decoder Polygon
+polygonDecoder = map Polygon
+  <|  field "coordinates"
+  <|  at ["geometry", "coordinates"]
+  <|  ( list << list << list )
+  <|  float
+
+decodePR2 : Decoder  ( List ( List ( List ( List ( List Float )))))
+decodePR2 = at ["municipios"]
+  <| list
+  <| at ["geometry", "coordinates"]
+  <| list <| list <| list <| list
+  <| float
