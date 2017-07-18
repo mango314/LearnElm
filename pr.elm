@@ -44,6 +44,9 @@ divStyle = style [("width", "250px"), ("display", "inline-block")]
 svgStyle : Html.Attribute Msg
 svgStyle = style [("width", "500px")]
 
+f : List ( List Float ) -> Int
+f x = ( List.sum << ( List.map (\a -> 1 ) ) ) x
+
 view model =
   div [ ]
     [ div [ divStyle ] [ text model.note ]
@@ -54,8 +57,8 @@ view model =
             (\x ->
               case x of
                 Just y -> div []
-                  [ text "abc"
-                  , ( text << toString << List.sum << ( List.map (\t -> 1) ) ) y.coordinates
+                  [ text "# elements: "
+                  , ( text << toString << List.sum << ( List.map f ) ) y.coordinates
                   ]
                 Nothing -> div [] [ text "nothing"]
             ) model.polygons
@@ -81,14 +84,5 @@ decodePR = ( ( at ["municipios"] ) << list << maybe ) ( polygonDecoder )
 
 polygonDecoder : Decoder Polygon
 polygonDecoder = map Polygon
-  <|  field "coordinates"
   <|  at ["geometry", "coordinates"]
-  <|  ( list << list << list )
-  <|  float
-
-decodePR2 : Decoder  ( List ( List ( List ( List ( List Float )))))
-decodePR2 = at ["municipios"]
-  <| list
-  <| at ["geometry", "coordinates"]
-  <| list <| list <| list <| list
-  <| float
+  <|  ( list << list << list ) ( float )
