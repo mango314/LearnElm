@@ -103,7 +103,7 @@ view model =
 getPRData : Cmd Msg
 getPRData =
   let
-    url = "http://localhost:8000/PR/PR.json"
+    url = "http://localhost:8000/PR.json"
   in
     Http.send GetMap <| Http.get url decodePR
     --Http.send GetMap <| Http.getString url
@@ -111,10 +111,12 @@ getPRData =
 -- LANDMARK: this decoder works !
 -- discussion on Elm decoders rather limited
 -- Fajardo is Multipolygon
+-- (resolved via http://miguelrios.github.io/atlaspr/) 
+
 
 -- no monads!!
 decodePR : Decoder  ( List ( Maybe Town ))
-decodePR = ( ( at ["municipios"] ) << list << maybe ) ( oneOf  [ polygonDecoder, multiPolygonDecoder ] )
+decodePR = ( ( at ["pueblos", "features"] ) << list << maybe ) ( oneOf  [ polygonDecoder, multiPolygonDecoder ] )
 
 polygonDecoder : Decoder Town
 polygonDecoder = map Bar
