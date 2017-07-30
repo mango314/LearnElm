@@ -1,7 +1,7 @@
 import Html exposing (Html, Attribute, button, div, text)
 import Html.Events exposing (onClick)
 import Svg exposing (Svg, svg, g, polygon)
-import Svg.Attributes exposing (points)
+import Svg.Attributes exposing (points, fill, stroke, strokeWidth )
 
 import Http
 import Json.Decode as Decode exposing (Decoder, at, list, maybe, map, map2, field, float, oneOf, string)
@@ -10,11 +10,11 @@ import Html.Attributes exposing (style)
 main =
   Html.program { init = init, view = view, update = update , subscriptions = subscriptions }
 
-type Msg = GetMap ( Result Http.Error ( List ( Maybe Polygon ) ) ) | AskMap
+type Msg = GetMap ( Result Http.Error ( List ( Maybe Town ) ) ) | AskMap
 
 -- INIT
 
-type alias Model   =   { note:  String, polygons: List ( Maybe Polygon ) }
+type alias Model   =   { note:  String, polygons: List ( Maybe Town ) }
 
 type alias Polygon =   { name: String, coordinates: List ( List ( List Float )) }
 
@@ -22,7 +22,7 @@ type alias MultiPolygon = { name: String , coordinates: List ( List ( List ( Lis
 
 -- > type Qqq = Abc String | Xyz Int
 -- > Abc
--- <function> : String -> Repl.Qqq
+-- <function> : String -> Qqq
 
 
 type Town =  Foo MultiPolygon | Bar Polygon
@@ -55,7 +55,7 @@ divStyle : Html.Attribute Msg
 divStyle = style [("width", "250px"), ("display", "inline-block"), ("margin-left", "5px")]
 
 svgStyle : Html.Attribute Msg
-svgStyle = style [ ("width", "450px"), ("height", "150px"), ("background-color", "#FAFAFA"), ("margin", "5px") ]
+svgStyle = style [ ("width", "600px"), ("height", "200px"), ("background-color", "#FAFAFA"), ("margin", "5px") ]
 
 f : List ( List Float ) -> Int
 f x = ( List.sum << ( List.map (\a -> 1 ) ) ) x
@@ -63,15 +63,22 @@ f x = ( List.sum << ( List.map (\a -> 1 ) ) ) x
 h: Polygon -> String
 h x =
   (   String.concat
-  <<      List.map ( String.join " " ) 
+  <<      List.map ( String.join " " )
   <<  (   List.map << List.map  ) ( String.join "," )
-  <<  ( ( List.map << List.map << List.map ) (\t -> toString t) )
+  <<  (   List.map << List.map  )
+    (\z -> case z of
+      []      -> []
+      _ :: [] -> []
+      [a,b]   -> [ toString ( (1.25*(450 - ( 200*(-1*a - 65) ) ) )/0.95 ) , toString (1.25*(150 - ( 200*(b - 17.85) ) )) ]
+      _ :: _ :: _ :: _ -> []
+    )
   ) x.coordinates
 
-drawTiles : Maybe Polygon -> Svg Msg
+drawTiles : Maybe Town -> Svg Msg
 drawTiles x  = case x of
   Nothing -> polygon [] []
-  Just y  -> polygon [ points <| h y ] []
+  Just ( Bar y )  -> polygon [ points <| h y , fill "none", stroke "#000000", strokeWidth "1" ] []
+  Just ( Foo y )  -> polygon [] []
 
 view model =
   div [ ]
@@ -82,10 +89,11 @@ view model =
         <| List.map
             (\x ->
               case x of
-                Just y -> div [ divStyle ]
+                Just ( Bar y ) -> div [ divStyle ]
                   [ text "# elements: "
                   , ( text << toString << List.sum << ( List.map f ) ) y.coordinates
                   ]
+                Just ( Foo y ) -> div [ divStyle ] [ text "nothing"]
                 Nothing -> div [ divStyle ] [ text "nothing"]
             ) model.polygons
     ]
@@ -105,15 +113,17 @@ getPRData =
 -- Fajardo is Multipolygon
 
 -- no monads!!
-decodePR : Decoder  ( List ( Maybe Polygon ))
-decodePR = ( ( at ["municipios"] ) << list << maybe ) ( oneOf  [ polygonDecoder ] )
+decodePR : Decoder  ( List ( Maybe Town ))
+decodePR = ( ( at ["municipios"] ) << list << maybe ) ( oneOf  [ polygonDecoder, multiPolygonDecoder ] )
 
-polygonDecoder : Decoder Polygon
-polygonDecoder = map2 Polygon
+polygonDecoder : Decoder Town
+polygonDecoder = map Bar
+  <| map2  Polygon
   ( at [ "properties", "NAME" ] string )
   ( at [ "geometry", "coordinates" ] <| ( list << list << list ) ( float ) )
 
-multiPolygonDecoder : Decoder MultiPolygon
-multiPolygonDecoder = map2 MultiPolygon
+multiPolygonDecoder : Decoder Town
+multiPolygonDecoder = map Foo
+  <| map2  MultiPolygon
   ( at [ "properties", "NAME" ] string )
   ( at [ "geometry", "coordinates" ] <| ( list << list << list << list ) ( float ) )
